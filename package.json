@@ -8,9 +8,21 @@
     "start": "next start"
   },
   "dependencies": {
+    "@headlessui/react": "^1.2.0",
+    "@heroicons/react": "^1.0.1",
+    "bignumber.js": "^9.0.1",
+    "date-fns": "^2.22.1",
+    "dayjs": "^1.10.5",
+    "graphql": "^15.5.0",
+    "graphql-request": "^3.4.0",
+    "isomorphic-fetch": "^3.0.0",
+    "lodash.clonedeep": "^4.5.0",
     "next": "latest",
+    "numeral": "^2.0.6",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "recharts": "^2.0.9",
+    "swr": "^0.5.6"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.4",
