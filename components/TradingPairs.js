@@ -12,7 +12,7 @@ export default function TradingPairs({ heading = "", data }) {
               <table className="min-w-full divide-y divide-gray-200">
                 <THead />
                 {data?.map((d) => (
-                  <TBody {...d} />
+                  <TBody {...d} key={d.id} />
                 ))}
               </table>
             </div>

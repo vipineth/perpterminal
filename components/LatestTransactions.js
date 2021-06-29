@@ -21,7 +21,7 @@ export default function LatestTransactions({ heading = "" }) {
               <table className="min-w-full divide-y divide-gray-200">
                 <THead />
                 {data.transactions?.map((d) => (
-                  <TBody {...d} />
+                  <TBody {...d} key={d.id} />
                 ))}
               </table>
             </div>
