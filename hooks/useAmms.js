@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import { perpetualStatsFetcher, urlFetcher } from "../utils/fetcher";
 import ammsInfo from "../utils/ammsInfo";
-import { tokens } from "../utils/tokenlist.json";
+import tokenlist from "../utils/tokenlist.json";
 import { getAmmDayDetails } from "../utils/query";
 import groupby from "lodash.groupby";
 import { getSmallNumber, toK } from "../utils/helper";
@@ -12,7 +12,7 @@ function getIcon(symbol) {
     return ammsInfo?.[symbol].logoURI;
   } catch (error) {}
   try {
-    return tokens.find(
+    return tokenlist?.tokens.find(
       (token) => token.symbol.toLowerCase() === symbol.toLowerCase()
     ).logoURI;
   } catch (error) {}
@@ -23,14 +23,16 @@ function useAmms() {
   let { data: res, err } = useSWR(getAmmDayDetails, perpetualStatsFetcher);
 
   if (!data) return [];
-  let {
-    layers: { layer1, layer2 },
-  } = data;
-  let amms = Object.keys(layer2?.contracts).reduce((acc, key) => {
+
+  let amms = Object.keys(data?.layers?.layer2?.contracts).reduce((acc, key) => {
     if (key.endsWith("USDC")) {
       let symbol = key.replace("USDC", "");
       let icon = getIcon(symbol);
-      acc = acc.concat({ ...layer2?.contracts[key], icon, symbol });
+      acc = acc.concat({
+        ...data?.layers.layer2?.contracts[key],
+        icon,
+        symbol,
+      });
     }
     return acc;
   }, []);
