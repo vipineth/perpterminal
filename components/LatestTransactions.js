@@ -10,8 +10,6 @@ import { format } from "date-fns";
 export default function LatestTransactions({ heading = "" }) {
   let { data } = useSWR(latestTransaction, perpetualStatsFetcher);
 
-  console.log({ data });
-
   if (!data?.transactions) return "Loading";
   return (
     <div className="">

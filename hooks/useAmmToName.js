@@ -5,8 +5,9 @@ export default function useAmmToName() {
   let {
     data: { layers },
   } = useSWR(`https://metadata.perp.exchange/production.json`, urlFetcher);
+  if (!layers) return () => {};
 
-  let { layer1, layer2 } = layers;
+  let { layer2 } = layers;
 
   let names = Object.keys(layer2?.contracts).reduce((acc, cv) => {
     if (cv.endsWith("USDC")) {
