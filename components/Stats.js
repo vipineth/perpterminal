@@ -6,49 +6,8 @@ import {
   ChartBarIcon,
   ColorSwatchIcon,
 } from "@heroicons/react/solid";
-import {
-  CursorClickIcon,
-  MailOpenIcon,
-  UsersIcon,
-} from "@heroicons/react/outline";
-import { calculateStats, percentageDifference, toK } from "../utils/helper";
-import { useEffect } from "react";
-import BigNumber from "bignumber.js";
 
-const stats = [
-  {
-    id: 1,
-    name: "Avg. Weekly Volume",
-    stat: "71,897",
-    icon: UsersIcon,
-    change: "122",
-    changeType: "increase",
-  },
-  {
-    id: 3,
-    name: "Avg. Weekly Fee",
-    stat: "24.57%",
-    icon: CursorClickIcon,
-    change: "3.2%",
-    changeType: "decrease",
-  },
-  {
-    id: 2,
-    name: "Avg. Weekly Traders",
-    stat: "58.16%",
-    icon: MailOpenIcon,
-    change: "5.4%",
-    changeType: "increase",
-  },
-  {
-    id: 4,
-    name: "Avg. Click Rate",
-    stat: "24.57%",
-    icon: CursorClickIcon,
-    change: "3.2%",
-    changeType: "decrease",
-  },
-];
+import { calculateStats, percentageDifference, toK } from "../utils/helper";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");

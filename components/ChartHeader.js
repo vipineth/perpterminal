@@ -1,4 +1,7 @@
+import useAmms from "../hooks/useAmms";
+
 export default function ChartHeader({ setRange, OPTIONS, range }) {
+  useAmms();
   let labels = Object.keys(OPTIONS);
   return (
     <div className="flex justify-between">

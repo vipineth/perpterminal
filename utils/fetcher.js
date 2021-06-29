@@ -6,9 +6,11 @@ export function fetcher(query) {
     query
   );
 }
-export function perpetualStats(query) {
+export function perpetualStatsFetcher(query) {
   return request(
     "https://api.thegraph.com/subgraphs/name/vipineth/perpetual-protocol-stats",
     query
   );
 }
+
+export const urlFetcher = (...args) => fetch(...args).then((res) => res.json());

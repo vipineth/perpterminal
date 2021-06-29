@@ -28,28 +28,40 @@ export const getVolumeQuery = gql`
     }
   }
 `;
-
-export const last10Transaction = gql`
-  query {
-    positionChangedEvents(
-      first: 10
-      orderBy: blockNumber
-      orderDirection: desc
-    ) {
-      id
-      trader
+export const getAmmDayDetails = gql`
+  query AmmDayDetails {
+    ammDayDatas(orderBy: date, orderDirection: desc, where: {}) {
       amm
-      margin
-      positionNotional
+      feesUSD
+      tradeCount
+      volumeUSD
+      date
+    }
+  }
+`;
+
+export const latestTransaction = gql`
+  query LatestTransactions {
+    transactions(first: 15, orderBy: date, orderDirection: desc) {
+      amm
+      badDebt
+      blockNumber
+      date
       exchangedPositionSize
       fee
+      fundingPayment
+      gasPrice
+      gasUsed
+      id
+      liquidationPenalty
+      margin
+      positionNotional
       positionSizeAfter
       realizedPnl
-      unrealizedPnlAfter
-      badDebt
-      liquidationPenalty
       spotPrice
-      fundingPayment
+      trader
+      transactionHash
+      unrealizedPnlAfter
     }
   }
 `;

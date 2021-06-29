@@ -1,13 +1,13 @@
 import Stats from "./Stats";
-import Table from "./Table";
 import BarChart from "./BarChart";
 import ChartHeader from "./ChartHeader";
 import { useState } from "react";
 import { getVolumeQuery } from "../utils/query";
-import { perpetualStats } from "../utils/fetcher";
+import { perpetualStatsFetcher } from "../utils/fetcher";
 import useSWR from "swr";
 import { getSmallNumber } from "../utils/helper";
-import { fromUnixTime } from "date-fns";
+import fromUnixTime from "date-fns/fromUnixTime";
+import Details from "./Details";
 
 let OPTIONS = {
   "7D": 7,
@@ -18,7 +18,7 @@ let OPTIONS = {
 };
 
 export default function Main() {
-  const { data, error } = useSWR(getVolumeQuery, perpetualStats);
+  const { data, error } = useSWR(getVolumeQuery, perpetualStatsFetcher);
 
   let parsedData =
     data?.perpetualDayDatas?.map((one) => {
@@ -43,8 +43,7 @@ export default function Main() {
           </div>
         </div>
       </div>
-      <Table heading="Trading Pairs" />
-      <Table heading="Latest Transactions" />
+      <Details />
     </main>
   );
 }
