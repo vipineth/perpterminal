@@ -66,6 +66,36 @@ export const latestTransaction = gql`
   }
 `;
 
+export function getUserTransantions(addr) {
+  return `{
+    transactions(
+      where: { trader:  "${addr}"}
+      orderBy: date
+      orderDirection: desc
+      first: 1000
+    ) {
+      amm
+      badDebt
+      blockNumber
+      date
+      exchangedPositionSize
+      fee
+      fundingPayment
+      gasPrice
+      gasUsed
+      id
+      liquidationPenalty
+      margin
+      positionNotional
+      positionSizeAfter
+      realizedPnl
+      spotPrice
+      trader
+      transactionHash
+      unrealizedPnlAfter
+    }
+  }`;
+}
 export function getAddressPosition(addr) {
   return `{
     positionChangedEvents(first: 1000, orderBy: timestamp, orderDirection: desc, where: {

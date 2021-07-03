@@ -7,7 +7,7 @@ import groupby from "lodash.groupby";
 import { getSmallNumber, toK } from "../utils/helper";
 
 let url = "https://metadata.perp.exchange/production.json";
-function getIcon(symbol) {
+export function getIcon(symbol) {
   try {
     return ammsInfo?.[symbol].logoURI;
   } catch (error) {}

@@ -1,4 +1,3 @@
-import { ArrowSmRightIcon } from "@heroicons/react/outline";
 import useSWR from "swr";
 import useAmmToName from "../hooks/useAmmToName";
 import { perpetualStatsFetcher } from "../utils/fetcher";
@@ -6,6 +5,7 @@ import { latestTransaction } from "../utils/query";
 import fromUnixTime from "date-fns/fromUnixTime";
 import { getSmallNumber, toNiceDate } from "../utils/helper";
 import { format } from "date-fns";
+import Link from "next/link";
 
 export default function LatestTransactions({ heading = "" }) {
   let { data } = useSWR(latestTransaction, perpetualStatsFetcher);
@@ -62,7 +62,7 @@ function TBody(props) {
           )}
         </td>
         <td className="px-6 py-3 whitespace-nowrap text-md text-gray-800">
-          {getSmallNumber(props.spotPrice)}
+          {"$ " + getSmallNumber(props.spotPrice)}
         </td>
         <td className="px-6 py-3 whitespace-nowrap text-md text-gray-800">
           {getSmallNumber(props?.exchangedPositionSize.replace("-", ""))}
@@ -72,13 +72,11 @@ function TBody(props) {
         </td>
 
         <td className="px-6 py-3 whitespace-nowrap text-md text-gray-800">
-          <a
-            className="underline"
-            target="_blank"
-            href={`https://blockscout.com/xdai/mainnet/address/${props.trader}/transactions`}
-          >
-            {`${props.trader?.slice(0, 4)}......${props.trader?.slice(-5)}`}
-          </a>
+          <Link href={`/user/${props.trader}`}>
+            <a className="underline">
+              {`${props.trader?.slice(0, 4)}......${props.trader?.slice(-5)}`}
+            </a>
+          </Link>
         </td>
       </tr>
     </tbody>

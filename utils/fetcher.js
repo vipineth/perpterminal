@@ -6,10 +6,11 @@ export function fetcher(query) {
     query
   );
 }
-export function perpetualStatsFetcher(query) {
+export function perpetualStatsFetcher(query, variables) {
   return request(
     "https://api.thegraph.com/subgraphs/name/vipineth/perpetual-protocol-stats",
-    query
+    query,
+    variables
   );
 }
 

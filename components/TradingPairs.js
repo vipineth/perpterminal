@@ -26,7 +26,7 @@ export default function TradingPairs({ heading = "", data }) {
 function TBody(props) {
   return (
     <tbody className="bg-white divide-y divide-gray-200">
-      <tr key={props.amm}>
+      <tr key={props.id}>
         <td className="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
           <TableAvatar icon={props.icon} />
         </td>
