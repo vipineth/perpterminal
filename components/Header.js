@@ -10,15 +10,27 @@ const navigation = [
   { label: "User Account", link: "/user" },
 ];
 
-function Header({ title, isSmall }) {
+function getClassName(isSmall, noPadding) {
+  if (isSmall) {
+    return "pb-16";
+  }
+  if (noPadding) {
+    return "pb-0";
+  }
+  if (!isSmall && !noPadding) {
+    return "pb-32";
+  }
+}
+
+function Header({ title, isSmall, noPadding }) {
   let router = useRouter();
 
   let [address, setAddress] = useState("");
   useEffect(() => {
-    setAddress(router.query.address);
-  }, []);
+    setAddress(router.query?.address);
+  }, [router.query.address]);
   return (
-    <div className={`bg-gray-800 ${isSmall ? "pb-16" : "pb-32"}`}>
+    <div className={`bg-gray-800 ${getClassName(isSmall, noPadding)}`}>
       <Disclosure
         as="nav"
         className="bg-gray-800 border-b border-gray-300 border-opacity-25 lg:border-none"
@@ -140,13 +152,15 @@ function Header({ title, isSmall }) {
           </>
         )}
       </Disclosure>
-      <header className="py-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold text-white">
-            {title || "Dashboard"}
-          </h1>
-        </div>
-      </header>
+      {title && (
+        <header className="py-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 className="text-3xl font-bold text-white">
+              {title || "Dashboard"}
+            </h1>
+          </div>
+        </header>
+      )}
     </div>
   );
 }

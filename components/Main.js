@@ -8,6 +8,7 @@ import useSWR from "swr";
 import { getSmallNumber } from "../utils/helper";
 import fromUnixTime from "date-fns/fromUnixTime";
 import Details from "./Details";
+import Spinner from "./Spinner";
 
 let OPTIONS = {
   "7D": 7,
@@ -18,7 +19,10 @@ let OPTIONS = {
 };
 
 export default function Main() {
+  let [range, setRange] = useState(90);
   const { data, error } = useSWR(getVolumeQuery, perpetualStatsFetcher);
+
+  if (!data) return <Spinner />;
 
   let parsedData =
     data?.perpetualDayDatas?.map((one) => {
@@ -27,7 +31,6 @@ export default function Main() {
       return { ...one, volumeUSD, date };
     }) || null;
 
-  let [range, setRange] = useState(90);
   return (
     <main className="-mt-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
       <div className="mt-8 md:grid md:grid-cols-3 md:gap-4 space-y-2 md:space-y-0">

@@ -11,8 +11,8 @@ export default function TradingPairs({ heading = "", data }) {
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
               <table className="min-w-full divide-y divide-gray-200">
                 <THead />
-                {data?.map((d) => (
-                  <TBody {...d} key={d.id} />
+                {data?.map((d, i) => (
+                  <TBody {...d} key={i} />
                 ))}
               </table>
             </div>

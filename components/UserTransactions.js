@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import TableAvatar from "./TableAvatar";
 import { getIcon } from "../hooks/useAmms";
 import { useState } from "react";
+import { ArrowSmDownIcon, ArrowSmUpIcon } from "@heroicons/react/solid";
 
 export default function UserTransactions(props) {
   let [activeButton, setActiveButton] = useState("All");
@@ -57,6 +58,12 @@ export default function UserTransactions(props) {
                     className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider"
                   >
                     VOLUME
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider"
+                  >
+                    PnL
                   </th>
                   <th
                     scope="col"
@@ -118,6 +125,33 @@ export default function UserTransactions(props) {
                             (getSmallNumber(transaction.fee) * 1000).toFixed(2)
                           )}
                       </td>
+                      <td
+                        className={`px-6 py-4 whitespace-nowrap text-sm ${
+                          getSmallNumber(transaction.realizedPnl).toFixed(2) < 0
+                            ? "text-red-700"
+                            : "text-gray-800"
+                        }`}
+                      >
+                        <span className="inline-flex">
+                          {"$ " +
+                            numberWithCommas(
+                              getSmallNumber(transaction.realizedPnl).toFixed(2)
+                            )}
+
+                          {getSmallNumber(transaction.realizedPnl).toFixed(2) <
+                          0 ? (
+                            <ArrowSmDownIcon
+                              className="self-center flex-shrink-0 h-4 w-4 text-red-500"
+                              aria-hidden="true"
+                            />
+                          ) : (
+                            <ArrowSmUpIcon
+                              className="self-center flex-shrink-0 h-4 w-4 text-green-500"
+                              aria-hidden="true"
+                            />
+                          )}
+                        </span>
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                         {
                           <a
@@ -142,7 +176,7 @@ export default function UserTransactions(props) {
 
 function getClassName(index, arr, amm, activeBtn) {
   let classNames =
-    "relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:border focus:z-10 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500";
+    "relative inline-flex items-center px-4 mb-4 sm:justify-center md:justify-start py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:border focus:z-10 focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500";
 
   if (index === 0) {
     classNames = classNames + " rounded-l-md";
@@ -154,14 +188,14 @@ function getClassName(index, arr, amm, activeBtn) {
     classNames = "-ml-px " + classNames;
   }
 
-  if (amm.toLowerCase() === activeBtn.toLowerCase()) {
+  if (amm?.toLowerCase() === activeBtn.toLowerCase()) {
     classNames = classNames + " bg-green-400 text-white";
   }
   return classNames;
 }
 function ButtonGroup(props) {
   return (
-    <span className="relative z-0 inline-flex rounded-md mb-6">
+    <span className="relative z-0 inline-flex rounded-md mb-6 max-w-full flex-wrap">
       {props.amms.map((amm, index, arr) => {
         return (
           <button
