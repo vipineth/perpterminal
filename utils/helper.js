@@ -88,7 +88,10 @@ export function calculateStats(stats) {
     fee: getSmallNumber(secondWeekData.totalFee) / 7,
     trades: Math.floor(secondWeekData.totalTrades / 7),
   };
-  return [presentWeek, prevWeek];
+
+  let allVolume = BigNumber.sum(...stats.map((t) => t.volumeUSD)).toNumber();
+
+  return [presentWeek, prevWeek, allVolume];
 }
 
 export function getUserStatsInfo(transactions = []) {
