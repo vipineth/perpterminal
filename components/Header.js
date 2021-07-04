@@ -4,10 +4,11 @@ import { Disclosure } from "@headlessui/react";
 import { SearchIcon } from "@heroicons/react/solid";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
+import NavLink from "./NavLink";
 
 const navigation = [
-  { label: "Dashboard", link: "/" },
-  { label: "User Account", link: "/user" },
+  { label: "Dashboard", pathname: "/" },
+  { label: "User Account", pathname: "/user" },
 ];
 
 function getClassName(isSmall, noPadding) {
@@ -22,7 +23,7 @@ function getClassName(isSmall, noPadding) {
   }
 }
 
-function Header({ title, isSmall, noPadding }) {
+function Header({ title, isSmall, noPadding, data }) {
   let router = useRouter();
 
   let [address, setAddress] = useState("");
@@ -56,27 +57,14 @@ function Header({ title, isSmall, noPadding }) {
                   </div>
                   <div className="hidden lg:block lg:ml-10">
                     <div className="flex space-x-4">
-                      {navigation.map((item, itemIdx) =>
-                        itemIdx === 0 ? (
-                          <Fragment key={item.link}>
-                            {/* Current: "bg-green-700 text-white", Default: "text-white hover:bg-green-500 hover:bg-opacity-75" */}
-                            <a
-                              href="#"
-                              className="bg-green-700 text-white rounded-md py-2 px-3 text-sm font-medium"
-                            >
-                              {item.label}
-                            </a>
-                          </Fragment>
-                        ) : (
-                          <a
-                            key={item.link}
-                            href={item.link}
-                            className="text-white hover:bg-green-500 hover:bg-opacity-75 rounded-md py-2 px-3 text-sm font-medium"
-                          >
+                      {navigation.map((item) => (
+                        <NavLink key={item.pathname} href={item.pathname}>
+                          {/* Current: "bg-green-700 text-white", Default: "text-white hover:bg-green-500 hover:bg-opacity-75" */}
+                          <a className="rounded-md py-2 px-3 text-sm font-medium text-white">
                             {item.label}
                           </a>
-                        )
-                      )}
+                        </NavLink>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -155,9 +143,7 @@ function Header({ title, isSmall, noPadding }) {
       {title && (
         <header className="py-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold text-white">
-              {title || "Dashboard"}
-            </h1>
+            <h1 className="text-3xl font-bold text-white">{data && title}</h1>
           </div>
         </header>
       )}

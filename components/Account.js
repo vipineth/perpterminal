@@ -1,13 +1,8 @@
-import useSWR from "swr";
-import { perpetualStatsFetcher } from "../utils/fetcher";
-import { getUserTransantions } from "../utils/query";
 import Spinner from "./Spinner";
 import UserStats from "./UserStats";
 import UserTransactions from "./UserTransactions";
 
-function Account({ address }) {
-  let { data } = useSWR(getUserTransantions(address), perpetualStatsFetcher);
-
+function Account({ address, data }) {
   if (!data) return <Spinner />;
 
   return (
