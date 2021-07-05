@@ -68,7 +68,7 @@ function THead() {
           scope="col"
           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
         >
-          Pair
+          Icon
         </th>
         <th
           scope="col"
@@ -80,19 +80,19 @@ function THead() {
           scope="col"
           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
         >
-          Trade Volume
+          Trade Volume (24h)
         </th>
         <th
           scope="col"
           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
         >
-          Fees Collected
+          Fees Collected (24h)
         </th>
         <th
           scope="col"
           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
         >
-          Number of Trades
+          Number of Trades (24h)
         </th>
         <th scope="col" className="relative px-6 py-3">
           <span className="sr-only">Trade Now</span>

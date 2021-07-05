@@ -1,10 +1,11 @@
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Disclosure } from "@headlessui/react";
 import { SearchIcon } from "@heroicons/react/solid";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 import NavLink from "./NavLink";
+import { isAddress } from "../utils/helper";
 
 const navigation = [
   { label: "Dashboard", pathname: "/" },
@@ -24,6 +25,7 @@ function getClassName(isSmall, noPadding) {
 }
 
 function Header({ title, isSmall, noPadding, data }) {
+  console.log({ data, title });
   let router = useRouter();
   let [address, setAddress] = useState("");
 
@@ -80,6 +82,10 @@ function Header({ title, isSmall, noPadding, data }) {
                       <form
                         onSubmit={(e) => {
                           e.preventDefault();
+                          if (!isAddress(address)) {
+                            alert("Enter a valid ETH address");
+                            return;
+                          }
                           router.push(`/user/${address}`);
                         }}
                       >
@@ -94,10 +100,22 @@ function Header({ title, isSmall, noPadding, data }) {
                           }}
                           value={address}
                         />
+                        <div className="absolute inset-y-0 right-0 pr-1 flex items-center cursor-pointer">
+                          <button
+                            type="submit"
+                            className="inline-flex items-center px-4 py-0.5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                          >
+                            <SearchIcon
+                              className="block h-6 w-6"
+                              aria-hidden="true"
+                            />
+                          </button>
+                        </div>
                       </form>
                     </div>
                   </div>
                 </div>
+
                 <div className="flex lg:hidden">
                   {/* Mobile menu button */}
                   <Disclosure.Button className="bg-green-600 p-2 rounded-md inline-flex items-center justify-center text-green-200 hover:text-white hover:bg-green-500 hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-green-600 focus:ring-white">
@@ -129,7 +147,7 @@ function Header({ title, isSmall, noPadding, data }) {
       {title && (
         <header className="py-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold text-white">{data && title}</h1>
+            <h1 className="text-3xl font-bold text-white">{title}</h1>
           </div>
         </header>
       )}

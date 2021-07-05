@@ -106,11 +106,15 @@ export function getUserStatsInfo(transactions = []) {
       { label: "Total Trade Volume", amount: toK(totalFees * 1000) },
       { label: "Total Number of Trades", amount: transactions.length },
       {
-        label: "Total PnL (Excluding Fee)",
+        label: "Total PnL (Excluding Fees)",
         amount: "$ " + numberWithCommas(totalPnL),
       },
     ];
   }
+}
+
+export function isAddress(address) {
+  return /^(0x){1}[0-9a-fA-F]{40}$/i.test(address);
 }
 
 export const usdcIcon =

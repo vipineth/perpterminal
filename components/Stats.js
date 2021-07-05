@@ -1,4 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
+import { ChartSquareBarIcon } from "@heroicons/react/outline";
 import {
   ArrowSmDownIcon,
   ArrowSmUpIcon,
@@ -18,7 +19,7 @@ let icons = {
   trades: <UserGroupIcon className="h-4 w-4 text-white" aria-hidden="true" />,
   fee: <ColorSwatchIcon className="h-4 w-4 text-white" aria-hidden="true" />,
   totalVolume: (
-    <ColorSwatchIcon className="h-4 w-4 text-white" aria-hidden="true" />
+    <ChartSquareBarIcon className="h-4 w-4 text-white" aria-hidden="true" />
   ),
 };
 
