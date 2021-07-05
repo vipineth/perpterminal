@@ -4,7 +4,7 @@ export default function ChartHeader({ setRange, OPTIONS, range }) {
   useAmms();
   let labels = Object.keys(OPTIONS);
   return (
-    <div className="flex justify-between">
+    <div className="block sm:flex sm:justify-between text-center space-y-2 sm:space-y-0">
       <h3 className="text-lg font-semibold">24H Trading Volume</h3>
       <span className="relative z-0 inline-flex shadow-sm rounded-md">
         {labels.map((label) => (

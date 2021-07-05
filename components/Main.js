@@ -33,14 +33,14 @@ export default function Main() {
 
   return (
     <main className="-mt-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-      <div className="mt-8 md:grid md:grid-cols-3 md:gap-4 space-y-2 md:space-y-0">
+      <div className="mt-8 md:grid md:grid-cols-3 md:gap-4 space-y-10 md:space-y-0">
         <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6 col-span-2">
           <div className="rounded-lg h-96">
             <ChartHeader setRange={setRange} OPTIONS={OPTIONS} range={range} />
             <BarChart range={range} data={parsedData} />
           </div>
         </div>
-        <div className="bg-white rounded-lg shadow-lg px-5 py-6 sm:px-6">
+        <div className="bg-white rounded-lg shadow-lg px-5 py-6 sm:px-6 mt-8 sm:mt-0">
           <div className="rounded-lg">
             <Stats data={parsedData} />
           </div>

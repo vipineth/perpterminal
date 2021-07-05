@@ -25,11 +25,12 @@ function getClassName(isSmall, noPadding) {
 
 function Header({ title, isSmall, noPadding, data }) {
   let router = useRouter();
-
   let [address, setAddress] = useState("");
+
   useEffect(() => {
     setAddress(router.query?.address);
   }, [router.query.address]);
+
   return (
     <div className={`bg-gray-800 ${getClassName(isSmall, noPadding)}`}>
       <Disclosure
@@ -59,7 +60,6 @@ function Header({ title, isSmall, noPadding, data }) {
                     <div className="flex space-x-4">
                       {navigation.map((item) => (
                         <NavLink key={item.pathname} href={item.pathname}>
-                          {/* Current: "bg-green-700 text-white", Default: "text-white hover:bg-green-500 hover:bg-opacity-75" */}
                           <a className="rounded-md py-2 px-3 text-sm font-medium text-white">
                             {item.label}
                           </a>
@@ -114,27 +114,13 @@ function Header({ title, isSmall, noPadding, data }) {
 
             <Disclosure.Panel className="lg:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1">
-                {navigation.map((item, itemIdx) =>
-                  itemIdx === 0 ? (
-                    <Fragment key={item}>
-                      {/* Current: "bg-green-700 text-white", Default: "text-white hover:bg-green-500 hover:bg-opacity-75" */}
-                      <a
-                        href="#"
-                        className="bg-green-700 text-white block rounded-md py-2 px-3 text-base font-medium"
-                      >
-                        {item}
-                      </a>
-                    </Fragment>
-                  ) : (
-                    <a
-                      key={item}
-                      href="#"
-                      className="text-white hover:bg-green-500 hover:bg-opacity-75 block rounded-md py-2 px-3 text-base font-medium"
-                    >
-                      {item}
+                {navigation.map((item) => (
+                  <NavLink key={item.pathname} href={item.pathname}>
+                    <a className="bg-gray-900 border-white text-white block rounded-md py-2 px-3 text-base font-medium">
+                      {item.label}
                     </a>
-                  )
-                )}
+                  </NavLink>
+                ))}
               </div>
             </Disclosure.Panel>
           </>
