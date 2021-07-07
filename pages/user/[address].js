@@ -18,8 +18,8 @@ export default function Address() {
       <Head>
         <title>Perpetual Dashboard | {router?.query.address}</title>
       </Head>
-      <Header title="Account" isSmall data={data} />
-      <Account address={router?.query.address} data={data} />
+      <Header title="Account" isSmall />
+      <Account data={data} />
     </div>
   );
 }

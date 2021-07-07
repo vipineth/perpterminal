@@ -18,6 +18,17 @@ export function getIcon(symbol) {
   } catch (error) {}
 }
 
+export function getName(symbol) {
+  try {
+    return ammsInfo?.[symbol].name;
+  } catch (error) {}
+  try {
+    return tokenlist?.tokens.find(
+      (token) => token.symbol.toLowerCase() === symbol.toLowerCase()
+    ).name;
+  } catch (error) {}
+}
+
 function useAmms() {
   let { data, error } = useSWR(url, urlFetcher);
   let { data: res, err } = useSWR(getAmmDayDetails, perpetualStatsFetcher);
@@ -28,6 +39,7 @@ function useAmms() {
     if (key.endsWith("USDC")) {
       let symbol = key.replace("USDC", "");
       let icon = getIcon(symbol);
+      let name = getName(symbol);
       acc = acc.concat({
         ...data?.layers.layer2?.contracts[key],
         icon,
@@ -50,7 +62,6 @@ function useAmms() {
       volumeUSD: toK(getSmallNumber(singleAmm.volumeUSD)),
     };
   });
-
   return [final, error];
 }
 

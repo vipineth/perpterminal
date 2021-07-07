@@ -65,7 +65,45 @@ export const latestTransaction = gql`
     }
   }
 `;
+export const ammLatestTransaction = (amm) => `
+query AmmLatestTransaction {
+  transactions(first: 20, orderBy: date, orderDirection: desc, where: {amm: "${amm}"}) {
+    amm
+    badDebt
+    blockNumber
+    date
+    exchangedPositionSize
+    fee
+    fundingPayment
+    gasPrice
+    gasUsed
+    id
+    liquidationPenalty
+    margin
+    positionNotional
+    positionSizeAfter
+    realizedPnl
+    spotPrice
+    trader
+    transactionHash
+    unrealizedPnlAfter
+  }
+}
 
+`;
+
+export function getAmmDailyData(amm) {
+  return `query AmmDayData {
+    ammDayDatas(where: {amm: "${amm}"}, orderBy: date, orderDirection: asc) {
+    amm
+    date
+    feesUSD
+    id
+    tradeCount
+    volumeUSD
+  }
+ }`;
+}
 export function getUserTransantions(addr) {
   return `{
     transactions(

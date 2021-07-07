@@ -1,16 +1,11 @@
-import useSWR from "swr";
 import useAmmToName from "../hooks/useAmmToName";
-import { perpetualStatsFetcher } from "../utils/fetcher";
-import { latestTransaction } from "../utils/query";
 import fromUnixTime from "date-fns/fromUnixTime";
-import { getSmallNumber, toNiceDate } from "../utils/helper";
+import { getSmallNumber } from "../utils/helper";
 import { format } from "date-fns";
 import Link from "next/link";
 
-export default function LatestTransactions({ heading = "" }) {
-  let { data } = useSWR(latestTransaction, perpetualStatsFetcher);
-
-  if (!data?.transactions) return "Loading";
+export default function Transactions({ heading = "", data }) {
+  if (!data) return "Loading";
   return (
     <div className="">
       <h3 className="py-5 text-lg font-bold text-gray-700">{heading}</h3>
@@ -20,7 +15,7 @@ export default function LatestTransactions({ heading = "" }) {
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
               <table className="min-w-full divide-y divide-gray-200">
                 <THead />
-                {data.transactions?.map((d) => (
+                {data?.map((d) => (
                   <TBody {...d} key={d.id} />
                 ))}
               </table>
@@ -33,7 +28,7 @@ export default function LatestTransactions({ heading = "" }) {
 }
 
 function TBody(props) {
-  let getNameFromAmm = useAmmToName();
+  let { getNameFromAddress } = useAmmToName();
 
   return (
     <tbody className="bg-white divide-y divide-gray-200">
@@ -48,7 +43,7 @@ function TBody(props) {
           </a>
         </td>
         <td className="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
-          {getNameFromAmm(props.amm)}
+          {getNameFromAddress && getNameFromAddress(props.amm)}
         </td>
         <td className="px-6 py-3 whitespace-nowrap text-md text-gray-800">
           {props?.exchangedPositionSize < 0 ? (

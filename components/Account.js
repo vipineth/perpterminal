@@ -2,7 +2,7 @@ import Spinner from "./Spinner";
 import UserStats from "./UserStats";
 import UserTransactions from "./UserTransactions";
 
-function Account({ address, data }) {
+function Account({ data }) {
   if (!data) return <Spinner />;
   if (data?.transactions.length === 0) {
     return (

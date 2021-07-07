@@ -9,10 +9,10 @@ import { ArrowSmDownIcon, ArrowSmUpIcon } from "@heroicons/react/solid";
 
 export default function UserTransactions(props) {
   let [activeButton, setActiveButton] = useState("All");
-  let getNameFromAmm = useAmmToName();
+  let { getNameFromAddress } = useAmmToName();
   let uniqueAmms = ["All"].concat(
     [...new Set(props.data?.transactions.map((p) => p.amm))].map((a) =>
-      getNameFromAmm(a)
+      getNameFromAddress(a)
     )
   );
 
@@ -78,7 +78,7 @@ export default function UserTransactions(props) {
                   .filter((t) => {
                     if (activeButton === "All") return true;
                     if (
-                      getNameFromAmm(t.amm).toLowerCase() ===
+                      getNameFromAddress(t.amm).toLowerCase() ===
                       activeButton.toLowerCase()
                     ) {
                       return true;
@@ -92,10 +92,10 @@ export default function UserTransactions(props) {
                     >
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 flex items-center">
                         <TableAvatar
-                          icon={getIcon(getNameFromAmm(transaction.amm))}
+                          icon={getIcon(getNameFromAddress(transaction.amm))}
                         />
                         <span className="ml-2">
-                          {getNameFromAmm(transaction.amm)}
+                          {getNameFromAddress(transaction.amm)}
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">

@@ -6,7 +6,8 @@ export default function useAmmToName() {
     `https://metadata.perp.exchange/production.json`,
     urlFetcher
   );
-  if (!data) return () => {};
+
+  if (!data) return {};
 
   let { layer2 } = data?.layers;
 
@@ -14,14 +15,20 @@ export default function useAmmToName() {
     if (cv.endsWith("USDC")) {
       acc[layer2.contracts[cv].address.toLowerCase()] = {
         symbol: cv.replace("USDC", ""),
+        address: layer2.contracts[cv].address.toLowerCase(),
       };
       return acc;
     }
     return acc;
   }, {});
-
-  function getName(name) {
-    return names[name.toLowerCase()].symbol;
+  function getNameFromAddress(addr) {
+    return names[addr.toLowerCase()].symbol;
   }
-  return getName;
+  function getAddressFromName(name) {
+    return Object.values(names).find(
+      (t) => t.symbol.toLowerCase() === name.toLowerCase()
+    ).address;
+  }
+
+  return { getNameFromAddress, getAddressFromName };
 }

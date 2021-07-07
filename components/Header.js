@@ -24,8 +24,7 @@ function getClassName(isSmall, noPadding) {
   }
 }
 
-function Header({ title, isSmall, noPadding, data }) {
-  console.log({ data, title });
+function Header({ title, isSmall, noPadding }) {
   let router = useRouter();
   let [address, setAddress] = useState("");
 
@@ -38,9 +37,6 @@ function Header({ title, isSmall, noPadding, data }) {
       <Disclosure
         as="nav"
         className="bg-gray-800 border-b border-gray-300 border-opacity-25 lg:border-none"
-        router={router}
-        address={address}
-        setAddress={setAddress}
       >
         {(props) => (
           <>
@@ -103,10 +99,10 @@ function Header({ title, isSmall, noPadding, data }) {
                         <div className="absolute inset-y-0 right-0 pr-1 flex items-center cursor-pointer">
                           <button
                             type="submit"
-                            className="inline-flex items-center px-4 py-0.5 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                            className="inline-flex items-center px-4 py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                           >
                             <SearchIcon
-                              className="block h-6 w-6"
+                              className="block h-5 w-5"
                               aria-hidden="true"
                             />
                           </button>
