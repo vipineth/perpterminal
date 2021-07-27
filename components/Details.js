@@ -10,9 +10,9 @@ export default function Details() {
   let { data } = useSWR(latestTransaction, perpetualStatsFetcher);
 
   return (
-    <>
+    <div>
       <TradingPairs heading="Trading Pairs" data={ammDetails} />
       <Transactions heading="Latest Transactions" data={data?.transactions} />
-    </>
+    </div>
   );
 }
