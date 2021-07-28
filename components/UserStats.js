@@ -1,7 +1,7 @@
 import { getUserStatsInfo } from "../utils/helper";
 
 export default function UserStats(props) {
-  let stats = getUserStatsInfo(props.data?.transactions);
+  let stats = getUserStatsInfo(props.data);
 
   if (!stats) return <h2>Loading ...</h2>;
   return (

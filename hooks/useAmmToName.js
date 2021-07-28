@@ -7,7 +7,8 @@ export default function useAmmToName() {
     urlFetcher
   );
 
-  if (!data) return {};
+  if (!data)
+    return { getNameFromAddress: () => null, getAddressFromName: () => null };
 
   let { layer2 } = data?.layers;
 

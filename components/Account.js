@@ -4,7 +4,7 @@ import UserTransactions from "./UserTransactions";
 
 function Account({ data }) {
   if (!data) return <Spinner />;
-  if (data?.transactions.length === 0) {
+  if (data?.length === 0) {
     return (
       <h1 className="text-3xl font-bold text-white text-center pt-24">
         No transaction found 😉{" "}

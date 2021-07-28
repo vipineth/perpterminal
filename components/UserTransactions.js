@@ -10,11 +10,13 @@ import { ArrowSmDownIcon, ArrowSmUpIcon } from "@heroicons/react/solid";
 export default function UserTransactions(props) {
   let [activeButton, setActiveButton] = useState("All");
   let { getNameFromAddress } = useAmmToName();
-  let uniqueAmms = ["All"].concat(
-    [...new Set(props.data?.transactions.map((p) => p.amm))].map((a) =>
-      getNameFromAddress(a)
+  let uniqueAmms = ["All"]
+    .concat(
+      [...new Set(props.data?.map((p) => p.amm))].map((a) =>
+        getNameFromAddress(a)
+      )
     )
-  );
+    .filter(Boolean);
 
   return (
     <div className="flex flex-col">
@@ -74,7 +76,7 @@ export default function UserTransactions(props) {
                 </tr>
               </thead>
               <tbody>
-                {props.data?.transactions
+                {props.data
                   .filter((t) => {
                     if (activeButton === "All") return true;
                     if (
