@@ -28,10 +28,10 @@ export default function UserTransactions(props) {
         disableSortBy: true,
         Cell: ({ value }) => {
           return (
-            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 flex items-center">
+            <div className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 flex items-center">
               <TableAvatar icon={getIcon(getNameFromAddress(value))} />
               <span className="ml-2">{getNameFromAddress(value)}</span>
-            </td>
+            </div>
           );
         },
       },
@@ -41,7 +41,7 @@ export default function UserTransactions(props) {
         accessor: "exchangedPositionSize",
         Cell: ({ value }) => {
           return (
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+            <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
               {value < 0 ? (
                 <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
                   Short
@@ -51,7 +51,7 @@ export default function UserTransactions(props) {
                   Long
                 </span>
               )}
-            </td>
+            </div>
           );
         },
       },
@@ -61,9 +61,9 @@ export default function UserTransactions(props) {
         accessor: "spotPrice",
         Cell: ({ value }) => {
           return (
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+            <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
               {"$ " + getSmallNumber(value)}
-            </td>
+            </div>
           );
         },
       },
@@ -73,13 +73,13 @@ export default function UserTransactions(props) {
         accessor: "position-size",
         Cell: ({ row }) => {
           return (
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+            <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
               {numberWithCommas(
                 getSmallNumber(
                   row.values.exchangedPositionSize.replace("-", "")
                 )
               )}
-            </td>
+            </div>
           );
         },
       },
@@ -88,10 +88,10 @@ export default function UserTransactions(props) {
         accessor: "fee",
         Cell: ({ value }) => {
           return (
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+            <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
               {"$ " +
                 numberWithCommas((getSmallNumber(value) * 1000).toFixed(2))}
-            </td>
+            </div>
           );
         },
       },
@@ -100,7 +100,7 @@ export default function UserTransactions(props) {
         accessor: "totalPnlAmount",
         Cell: ({ value }) => {
           return (
-            <td
+            <div
               className={`px-6 py-4 whitespace-nowrap text-sm ${
                 getSmallNumber(value).toFixed(2) < 0
                   ? "text-red-700"
@@ -122,7 +122,7 @@ export default function UserTransactions(props) {
                   />
                 )}
               </span>
-            </td>
+            </div>
           );
         },
       },
@@ -132,7 +132,7 @@ export default function UserTransactions(props) {
         accessor: "date",
         Cell: ({ value }) => {
           return (
-            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+            <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
               {
                 <a
                   className="underline text-blue-600"
@@ -142,7 +142,7 @@ export default function UserTransactions(props) {
                   {format(fromUnixTime(value), "Pp")}
                 </a>
               }
-            </td>
+            </div>
           );
         },
       },
