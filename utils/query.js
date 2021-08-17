@@ -112,7 +112,7 @@ export function getUserStats(address) {
       totalVolume
       assetList
       address
-      transactions(first: 1000, orderDirection: desc) {
+      transactions(first: 1000, orderBy: date, orderDirection: desc) {
         amm
         badDebt
         blockNumber
