@@ -116,6 +116,9 @@ export function isAddress(address) {
   return /^(0x){1}[0-9a-fA-F]{40}$/i.test(address);
 }
 
+export function isBrowser() {
+  return ![typeof window, typeof document].includes("undefined");
+}
 export async function addAmmInfo() {
   const response = await fetch(
     `https://metadata.perp.exchange/production.json`
@@ -134,7 +137,9 @@ export async function addAmmInfo() {
     }
     return acc;
   }, {});
-  localStorage.setItem("perp-info", JSON.stringify(names));
+  if (isBrowser()) {
+    localStorage.setItem("perp-info", JSON.stringify(names));
+  }
 }
 
 export const usdcIcon =
