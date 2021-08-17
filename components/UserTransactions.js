@@ -1,11 +1,6 @@
 import { useMemo, useState } from "react";
 import { format } from "date-fns";
-import {
-  ArrowSmDownIcon,
-  ArrowSmUpIcon,
-  SortAscendingIcon,
-  SortDescendingIcon,
-} from "@heroicons/react/solid";
+import { ArrowSmDownIcon, ArrowSmUpIcon } from "@heroicons/react/solid";
 import fromUnixTime from "date-fns/fromUnixTime";
 import useAmmToName from "../hooks/useAmmToName";
 import { getSmallNumber, numberWithCommas } from "../utils/helper";
@@ -262,13 +257,7 @@ function getClassName(index, arr, amm, activeBtn) {
   return classNames;
 }
 
-function TableBody({
-  transactions,
-  activeButton,
-  getNameFromAddress,
-  getTableBodyProps,
-  prepareRow,
-}) {
+function TableBody({ transactions, getTableBodyProps, prepareRow }) {
   return (
     <tbody {...getTableBodyProps()}>
       {transactions.map((transaction, index) => {
