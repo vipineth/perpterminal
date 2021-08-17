@@ -6,7 +6,8 @@ import useAmmToName from "../hooks/useAmmToName";
 import { getSmallNumber, numberWithCommas } from "../utils/helper";
 import TableAvatar from "./TableAvatar";
 import { getIcon } from "../hooks/useAmms";
-import { useTable, useSortBy } from "react-table";
+import { useTable, useSortBy, usePagination } from "react-table";
+import Pagination from "./Table/Pagination";
 
 export default function UserTransactions(props) {
   let [activeButton, setActiveButton] = useState("All");
@@ -145,25 +146,41 @@ export default function UserTransactions(props) {
     []
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable(
-      {
-        columns,
-        data: props.userStats.transactions,
-        autoResetSortBy: false,
-        autoResetPage: false,
-      },
-      useSortBy
-    );
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    prepareRow,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize },
+  } = useTable(
+    {
+      columns,
+      data: props.userStats.transactions,
+      autoResetSortBy: false,
+      autoResetPage: false,
+      initialState: { pageSize: 20 },
+    },
+    useSortBy,
+    usePagination
+  );
 
-  const firstPageTransactions = rows
-    .filter((r) => {
-      if (activeButton === "All") {
-        return true;
-      }
-      return activeButton === getNameFromAddress(r.original.amm);
-    })
-    .slice(0, 50);
+  const firstPageTransactions = page;
+  // .filter((r) => {
+  //   if (activeButton === "All") {
+  //     return true;
+  //   }
+  //   return activeButton === getNameFromAddress(r.original.amm);
+  // })
+  // .slice(0, 50);
 
   return (
     <div className="flex flex-col">
@@ -230,6 +247,14 @@ export default function UserTransactions(props) {
                 prepareRow={prepareRow}
               />
             </table>
+            <Pagination
+              pageCount={pageCount}
+              gotoPage={gotoPage}
+              previousPage={previousPage}
+              nextPage={nextPage}
+              pageIndex={pageIndex}
+              pageOptions={pageOptions}
+            />
           </div>
         </div>
       </div>
