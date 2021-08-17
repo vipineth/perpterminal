@@ -1,11 +1,15 @@
 import { useState } from "react";
+import useSSR from "use-ssr";
 
 export default function useLocalStorage(key, initialValue) {
+  let { isBrowser } = useSSR();
   const [storedValue, setStoredValue] = useState(() => {
     try {
-      const item = window.localStorage.getItem(key);
+      if (isBrowser) {
+        const item = window.localStorage.getItem(key);
 
-      return item ? JSON.parse(item) : initialValue;
+        return item ? JSON.parse(item) : initialValue;
+      }
     } catch (error) {
       console.log(error);
       return initialValue;
@@ -18,8 +22,9 @@ export default function useLocalStorage(key, initialValue) {
         value instanceof Function ? value(storedValue) : value;
 
       setStoredValue(valueToStore);
-
-      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+      if (isBrowser) {
+        window.localStorage.setItem(key, JSON.stringify(valueToStore));
+      }
     } catch (error) {
       console.log(error);
     }
