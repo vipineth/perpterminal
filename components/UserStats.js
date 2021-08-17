@@ -1,9 +1,11 @@
+import useSWR from "swr";
+import { perpetualStatsFetcher } from "../utils/fetcher";
 import { getUserStatsInfo } from "../utils/helper";
+import { getUserStats } from "../utils/query";
 
-export default function UserStats(props) {
-  let stats = getUserStatsInfo(props.data);
-
-  if (!stats) return <h2>Loading ...</h2>;
+export default function UserStats({ userStats }) {
+  let stats = getUserStatsInfo(userStats);
+  if (!stats) return <h2 className="mx-auto text-white">Loading ...</h2>;
   return (
     <dl className="mt-5 grid grid-cols-1 rounded-lg bg-white overflow-hidden shadow divide-y divide-gray-200 md:grid-cols-3 md:divide-y-0 md:divide-x">
       {stats.map((item, i) => (

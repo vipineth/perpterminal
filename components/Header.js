@@ -9,7 +9,7 @@ import { isAddress } from "../utils/helper";
 
 const navigation = [
   { label: "Dashboard", pathname: "/" },
-  { label: "User Account", pathname: "/user" },
+  { label: "Account", pathname: "/account" },
 ];
 
 function getClassName(isSmall, noPadding) {
@@ -82,7 +82,7 @@ function Header({ title, isSmall, noPadding }) {
                             alert("Enter a valid ETH address");
                             return;
                           }
-                          router.push(`/user/${address}`);
+                          router.push(`/account/${address}`);
                         }}
                       >
                         <input

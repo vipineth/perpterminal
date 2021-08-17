@@ -19,7 +19,7 @@ function SearchPanel() {
   let router = useRouter();
   function handleSubmit(event) {
     event.preventDefault();
-    router.push(`/user/${address}`);
+    router.push(`/account/${address}`);
   }
   return (
     <div className="bg-white py-16 sm:py-24">

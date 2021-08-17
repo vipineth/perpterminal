@@ -94,7 +94,7 @@ query AmmLatestTransaction {
 
 export function getAmmDailyData(amm) {
   return `query AmmDayData {
-    ammDayDatas(where: {amm: "${amm}"}, orderBy: date, orderDirection: asc) {
+    ammDayDatas(first: 1000, where: {amm: "${amm}"}, orderBy: date, orderDirection: asc) {
     amm
     date
     feesUSD
@@ -103,6 +103,39 @@ export function getAmmDailyData(amm) {
     volumeUSD
   }
  }`;
+}
+export function getUserStats(address) {
+  return `{
+    user(id: "${address}"){
+      totalPnL
+      totalTrades
+      totalVolume
+      assetList
+      address
+      transactions(first: 1000, orderDirection: desc) {
+        amm
+        badDebt
+        blockNumber
+        date
+        unrealizedPnlAfter
+        transactionHash
+        trader
+        totalPnlAmount
+        spotPrice
+        realizedPnl
+        positionSizeAfter
+        positionNotional
+        gasPrice
+        margin
+        liquidationPenalty
+        id
+        gasUsed
+        fundingPayment
+        fee
+        exchangedPositionSize
+      }
+    }
+  }`;
 }
 export function getUserTransantions(addr) {
   return `{

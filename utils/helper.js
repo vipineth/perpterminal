@@ -39,7 +39,6 @@ export function percentageDifference(a, b) {
 
 export function numberWithCommas(x) {
   return Number(x)
-    .toFixed(2)
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -94,20 +93,20 @@ export function calculateStats(stats) {
   return [presentWeek, prevWeek, allVolume];
 }
 
-export function getUserStatsInfo(transactions = []) {
-  if (transactions.length > 0) {
-    let totalFees = getSmallNumber(
-      BigNumber.sum(...transactions.map((t) => t.fee))
-    );
-    let totalPnL =
-      getSmallNumber(BigNumber.sum(...transactions.map((t) => t.realizedPnl))) -
-      totalFees;
+export function getUserStatsInfo(userStats) {
+  if (userStats) {
     return [
-      { label: "Total Trade Volume", amount: toK(totalFees * 1000) },
-      { label: "Total Number of Trades", amount: transactions.length },
+      {
+        label: "Total Trade Volume",
+        amount: toK(getSmallNumber(userStats.totalVolume)),
+      },
+      {
+        label: "Total Number of Trades",
+        amount: numberWithCommas(userStats.totalTrades),
+      },
       {
         label: "Total PnL (Excluding Fees)",
-        amount: "$ " + numberWithCommas(totalPnL),
+        amount: toK(getSmallNumber(userStats.totalPnL)),
       },
     ];
   }
@@ -115,6 +114,27 @@ export function getUserStatsInfo(transactions = []) {
 
 export function isAddress(address) {
   return /^(0x){1}[0-9a-fA-F]{40}$/i.test(address);
+}
+
+export async function addAmmInfo() {
+  const response = await fetch(
+    `https://metadata.perp.exchange/production.json`
+  );
+  const {
+    layers: { layer2 },
+  } = await response.json();
+
+  let names = Object.keys(layer2?.contracts).reduce((acc, cv) => {
+    if (cv.endsWith("USDC")) {
+      acc[layer2.contracts[cv].address.toLowerCase()] = {
+        symbol: cv.replace("USDC", ""),
+        address: layer2.contracts[cv].address.toLowerCase(),
+      };
+      return acc;
+    }
+    return acc;
+  }, {});
+  localStorage.setItem("perp-info", JSON.stringify(names));
 }
 
 export const usdcIcon =

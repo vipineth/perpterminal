@@ -67,7 +67,7 @@ function TBody(props) {
         </td>
 
         <td className="px-6 py-3 whitespace-nowrap text-md text-gray-800">
-          <Link href={`/user/${props.trader}`}>
+          <Link href={`/account/${props.trader}`}>
             <a className="underline">
               {`${props.trader?.slice(0, 4)}......${props.trader?.slice(-5)}`}
             </a>
