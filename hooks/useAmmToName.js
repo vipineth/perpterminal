@@ -9,9 +9,13 @@ export default function useAmmToName() {
     }
   }
   function getAddressFromName(name) {
-    return Object.values(names).find(
+    let token = Object.values(names).find(
       (t) => t.symbol.toLowerCase() === name.toLowerCase()
-    ).address;
+    );
+
+    if (token) {
+      return token.address;
+    }
   }
 
   return { getNameFromAddress, getAddressFromName };

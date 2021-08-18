@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useImperativeHandle, useMemo, useRef, useState } from "react";
 import { format } from "date-fns";
 import { ArrowSmDownIcon, ArrowSmUpIcon } from "@heroicons/react/solid";
 import fromUnixTime from "date-fns/fromUnixTime";
@@ -6,22 +6,37 @@ import useAmmToName from "../hooks/useAmmToName";
 import { getSmallNumber, numberWithCommas } from "../utils/helper";
 import TableAvatar from "./TableAvatar";
 import { getIcon } from "../hooks/useAmms";
-import { useTable, useSortBy, usePagination } from "react-table";
+import {
+  useTable,
+  useSortBy,
+  usePagination,
+  useFilters,
+  useGlobalFilter,
+} from "react-table";
 import Pagination from "./Table/Pagination";
 
 export default function UserTransactions(props) {
   let [activeButton, setActiveButton] = useState("All");
-  let { getNameFromAddress } = useAmmToName();
-  let uniqueAmms = ["All"]
-    .concat(props.userStats?.assetList.map(getNameFromAddress))
-    .filter(Boolean);
-
+  const tableInstance = useRef(null);
+  let { getNameFromAddress, getAddressFromName } = useAmmToName();
+  let uniqueAmms = useMemo(
+    () =>
+      [
+        ...new Set(
+          ["All"].concat(
+            props.userStats?.transactions.map((a) => getNameFromAddress(a.amm))
+          )
+        ),
+      ].filter(Boolean),
+    [props.userStats]
+  );
   const columns = useMemo(
     () => [
       {
         Header: "ASSET",
         accessor: "amm",
         disableSortBy: true,
+        filter: "includes",
         Cell: ({ value }) => {
           return (
             <div className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 flex items-center">
@@ -82,6 +97,8 @@ export default function UserTransactions(props) {
       {
         Header: "VOLUME",
         accessor: "fee",
+        sortMethod: (a, b) =>
+          Number(getSmallNumber(a)) - Number(getSmallNumber(b)),
         Cell: ({ value }) => {
           return (
             <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
@@ -94,6 +111,8 @@ export default function UserTransactions(props) {
       {
         Header: "PNL",
         accessor: "totalPnlAmount",
+        sortMethod: (a, b) =>
+          Number(getSmallNumber(a)) - Number(getSmallNumber(b)),
         Cell: ({ value }) => {
           return (
             <div
@@ -145,6 +164,19 @@ export default function UserTransactions(props) {
     ],
     []
   );
+  const instance = useTable(
+    {
+      columns,
+      data: props.userStats.transactions,
+      autoResetSortBy: false,
+      autoResetPage: false,
+      initialState: { pageSize: 50 },
+    },
+    useFilters,
+    useGlobalFilter,
+    useSortBy,
+    usePagination
+  );
 
   const {
     getTableProps,
@@ -161,17 +193,10 @@ export default function UserTransactions(props) {
     previousPage,
     setPageSize,
     state: { pageIndex, pageSize },
-  } = useTable(
-    {
-      columns,
-      data: props.userStats.transactions,
-      autoResetSortBy: false,
-      autoResetPage: false,
-      initialState: { pageSize: 20 },
-    },
-    useSortBy,
-    usePagination
-  );
+    setFilter,
+  } = instance;
+
+  useImperativeHandle(tableInstance, () => instance);
 
   const firstPageTransactions = page;
   // .filter((r) => {
@@ -186,8 +211,10 @@ export default function UserTransactions(props) {
     <div className="flex flex-col">
       <ButtonGroup
         amms={uniqueAmms}
-        activeButton={activeButton}
         setActiveButton={setActiveButton}
+        activeButton={activeButton}
+        tableInstance={tableInstance}
+        getAddressFromName={getAddressFromName}
       />
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -254,6 +281,8 @@ export default function UserTransactions(props) {
               nextPage={nextPage}
               pageIndex={pageIndex}
               pageOptions={pageOptions}
+              canPreviousPage={canPreviousPage}
+              canNextPage={canNextPage}
             />
           </div>
         </div>
@@ -311,7 +340,12 @@ function ButtonGroup(props) {
             key={amm}
             type="button"
             className={getClassName(index, arr, amm, props.activeButton)}
-            onClick={() => props.setActiveButton(amm)}
+            onClick={() => {
+              props.setActiveButton(amm);
+              props.tableInstance.current.setGlobalFilter(
+                props.getAddressFromName(amm)
+              );
+            }}
           >
             {amm}
           </button>
