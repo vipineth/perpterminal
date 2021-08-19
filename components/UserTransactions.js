@@ -16,6 +16,14 @@ import {
 import Pagination from "./Table/Pagination";
 
 export default function UserTransactions(props) {
+  const numberSort = useMemo(
+    () => (rowA, rowB, columnId) => {
+      const a = parseFloat(rowA.values[columnId]);
+      const b = parseFloat(rowB.values[columnId]);
+      return a > b ? 1 : -1;
+    },
+    []
+  );
   let [activeButton, setActiveButton] = useState("All");
   const tableInstance = useRef(null);
   let { getNameFromAddress, getAddressFromName } = useAmmToName();
@@ -97,8 +105,7 @@ export default function UserTransactions(props) {
       {
         Header: "VOLUME",
         accessor: "fee",
-        sortMethod: (a, b) =>
-          Number(getSmallNumber(a)) - Number(getSmallNumber(b)),
+        sortType: numberSort,
         Cell: ({ value }) => {
           return (
             <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
@@ -111,8 +118,7 @@ export default function UserTransactions(props) {
       {
         Header: "PNL",
         accessor: "totalPnlAmount",
-        sortMethod: (a, b) =>
-          Number(getSmallNumber(a)) - Number(getSmallNumber(b)),
+        sortType: numberSort,
         Cell: ({ value }) => {
           return (
             <div
