@@ -13,7 +13,7 @@ import {
   useFilters,
   useGlobalFilter,
 } from "react-table";
-import Pagination from "./Table/Pagination";
+import Pagination from "./table/Pagination";
 
 export default function UserTransactions(props) {
   const numberSort = useMemo(
@@ -204,15 +204,6 @@ export default function UserTransactions(props) {
 
   useImperativeHandle(tableInstance, () => instance);
 
-  const firstPageTransactions = page;
-  // .filter((r) => {
-  //   if (activeButton === "All") {
-  //     return true;
-  //   }
-  //   return activeButton === getNameFromAddress(r.original.amm);
-  // })
-  // .slice(0, 50);
-
   return (
     <div className="flex flex-col">
       <ButtonGroup
@@ -273,7 +264,7 @@ export default function UserTransactions(props) {
                 ))}
               </thead>
               <TableBody
-                transactions={firstPageTransactions}
+                transactions={page}
                 activeButton={activeButton}
                 getNameFromAddress={getNameFromAddress}
                 getTableBodyProps={getTableBodyProps}

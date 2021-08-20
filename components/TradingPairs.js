@@ -8,25 +8,14 @@ export default function TradingPairs({ heading = "", data = [] }) {
   const columns = useMemo(
     () => [
       {
-        Header: "ICON",
-        accessor: "icon",
-        disableSortBy: true,
-        Cell: ({ value }) => {
-          return (
-            <div className="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
-              <TableAvatar icon={value} />
-            </div>
-          );
-        },
-      },
-      {
         Header: "ASSET",
         accessor: "symbol",
         disableSortBy: true,
-        Cell: ({ value }) => {
+        Cell: ({ value, row }) => {
           return (
-            <div className="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
-              {value}
+            <div className="px-6 py-3 whitespace-nowrap flex items-center">
+              <TableAvatar icon={row.original.icon} />
+              <p className="text-sm font-medium text-gray-900 ml-2">{value}</p>
             </div>
           );
         },
@@ -36,7 +25,7 @@ export default function TradingPairs({ heading = "", data = [] }) {
         accessor: "volumeUSD",
         Cell: ({ value }) => {
           return (
-            <div className="px-6 py-3 whitespace-nowrap text-md text-gray-800">
+            <div className="px-6 py-3 whitespace-nowrap text-md text-gray-800 text-center">
               {value}
             </div>
           );
@@ -47,7 +36,7 @@ export default function TradingPairs({ heading = "", data = [] }) {
         accessor: "feesUSD",
         Cell: ({ value }) => {
           return (
-            <div className="px-6 py-3 whitespace-nowrap text-md text-gray-800">
+            <div className="px-6 py-3 whitespace-nowrap text-md text-gray-800 text-center">
               {value}
             </div>
           );
@@ -58,7 +47,7 @@ export default function TradingPairs({ heading = "", data = [] }) {
         accessor: "tradeCount",
         Cell: ({ value }) => {
           return (
-            <div className="px-6 py-3 whitespace-nowrap text-md text-gray-800">
+            <div className="px-6 py-3 whitespace-nowrap text-md text-gray-800 text-center">
               {value}
             </div>
           );
