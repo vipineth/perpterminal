@@ -30,8 +30,6 @@ export default function Address() {
     return getUserStats(router?.query?.address?.toLowerCase());
   }, perpetualStatsFetcher);
 
-  console.log(userStats, "from address");
-
   return (
     <div className="min-h-screen bg-gray-100">
       <Head>
