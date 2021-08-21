@@ -5,7 +5,6 @@ import { SearchIcon } from "@heroicons/react/solid";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 import NavLink from "./NavLink";
-import { isAddress } from "../utils/helper";
 
 const navigation = [
   { label: "Dashboard", pathname: "/" },
@@ -73,10 +72,6 @@ function Header({ title, isSmall, noPadding, isInvalid, address, setAddress }) {
                       <form
                         onSubmit={(e) => {
                           e.preventDefault();
-                          // if (!isAddress(address)) {
-                          //   alert("Enter a valid ETH address");
-                          //   return;
-                          // }
                           router.push(`/account/${address}`);
                         }}
                       >

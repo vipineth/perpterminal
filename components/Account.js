@@ -17,16 +17,20 @@ function Account({ userStats, isInvalid }) {
         </p>
       </div>
     );
-  if (!userStats) return <Spinner />;
+  if (userStats === undefined) return <Spinner />;
 
-  if (userStats.transactions.length === 0) {
+  if (userStats === null) {
     return (
-      <h1 className="text-3xl font-bold text-white text-center pt-24">
-        No transaction found 😉{" "}
-        <Link href="/">
-          <a className="underline">Start Trading Now</a>
-        </Link>
-      </h1>
+      <div className="mx-auto max-w-3xl">
+        <h1 className="text-3xl font-bold text-gray-600 text-center pt-24">
+          No transaction found for this address.
+        </h1>
+        <p className="text-center text-xl pt-12">
+          <a href="https://perp.exchange" className="underline ">
+            Start trading now! 💰
+          </a>
+        </p>
+      </div>
     );
   }
 
