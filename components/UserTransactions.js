@@ -13,6 +13,7 @@ import {
   useFilters,
   useGlobalFilter,
 } from "react-table";
+
 import Pagination from "./table/Pagination";
 
 export default function UserTransactions(props) {
