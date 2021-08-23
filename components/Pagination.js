@@ -1,4 +1,3 @@
-/* This example requires Tailwind CSS v2.0+ */
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/solid";
 
 let activeClass = `z-10 bg-green-100 border-green-600 text-green-800 relative inline-flex items-center px-4 py-2 border text-sm font-medium`;

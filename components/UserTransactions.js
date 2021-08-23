@@ -13,8 +13,7 @@ import {
   useFilters,
   useGlobalFilter,
 } from "react-table";
-
-import Pagination from "./table/Pagination";
+import Pagination from "./Pagination";
 
 export default function UserTransactions(props) {
   const numberSort = useMemo(
