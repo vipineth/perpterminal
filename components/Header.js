@@ -5,6 +5,7 @@ import { SearchIcon } from "@heroicons/react/solid";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 import NavLink from "./NavLink";
+import { getSmallAddress } from "../utils/helper";
 
 const navigation = [
   { label: "Dashboard", pathname: "/" },
@@ -25,6 +26,20 @@ function getClassName(isSmall, noPadding) {
 
 function Header({ title, isSmall, noPadding, isInvalid, address, setAddress }) {
   let router = useRouter();
+
+  function getTitle() {
+    if (isInvalid) return "";
+    if (title && address)
+      return (
+        <>
+          {title}{" "}
+          <span className="text-base text-gradient-to-r from-red-500">
+            of {getSmallAddress(address)}
+          </span>
+        </>
+      );
+    if (title) return title;
+  }
 
   return (
     <div className={`bg-gray-800 ${getClassName(isSmall, noPadding)}`}>
@@ -130,15 +145,13 @@ function Header({ title, isSmall, noPadding, isInvalid, address, setAddress }) {
           </>
         )}
       </Disclosure>
-      {title && (
+      {
         <header className="py-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold text-white">
-              {!isInvalid ? title : ""}
-            </h1>
+            <h1 className="text-3xl font-bold text-white">{getTitle()}</h1>
           </div>
         </header>
-      )}
+      }
     </div>
   );
 }

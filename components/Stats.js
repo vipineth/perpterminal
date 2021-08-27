@@ -52,7 +52,7 @@ export default function Stats(props) {
         {statsInfo.map((item, i) => (
           <div
             key={i}
-            className={`relative bg-gray-200 py-5 px-4 sm:px-6 shadow rounded-lg overflow-hidden`}
+            className="relative bg-gray-200 py-5 px-4 sm:px-6 shadow rounded-lg overflow-hidden"
           >
             <dt>
               <div className="absolute bg-green-700 rounded-md p-3">

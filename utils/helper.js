@@ -3,17 +3,21 @@ import BigNumber from "bignumber.js";
 import Numeral from "numeral";
 import format from "date-fns/format";
 import cloneDeep from "lodash.clonedeep";
+import fromUnixTime from "date-fns/fromUnixTime";
 
 export const toK = (num) => {
   return "$ " + Numeral(num).format("0,0.[00]a");
 };
 
 export const toNiceDateYear = (date) => {
-  return format(date, "MMMM dd, yyy");
+  return format(fromUnixTime(date), "MMMM dd, yyy");
 };
 
 export const toNiceDate = (date) => {
-  return format(date, "dd MMM");
+  return format(fromUnixTime(date), "d MMM");
+};
+export const getSmallAddress = (address) => {
+  return address.slice(0, 6) + "..." + address.slice(-6);
 };
 
 export function getBigNumber(value) {

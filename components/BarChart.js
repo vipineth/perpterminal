@@ -1,13 +1,7 @@
-import dayjs from "dayjs";
 import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { DefaultTooltipContent } from "recharts/lib/component/DefaultTooltipContent";
 
-import {
-  toK,
-  toNiceDate,
-  toNiceDateYear,
-  getSmallNumber,
-} from "../utils/helper";
+import { toK, toNiceDate, toNiceDateYear } from "../utils/helper";
 
 const CustomBar = ({ x, y, width, height, fill }) => {
   return (
@@ -31,7 +25,7 @@ function Chart(props) {
           tickFormatter={(d) => toNiceDate(d)}
           tick={{ fontSize: 12, color: "red" }}
           style={{
-            fontSize: "1rem",
+            fontSize: "0.85rem",
           }}
         />
 

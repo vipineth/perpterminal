@@ -36,10 +36,11 @@ export default function Address() {
         <title>Perpetual Protocol Dashboard | {router?.query.address}</title>
       </Head>
       <Header
-        title="Account"
+        title="Account Details"
         isSmall
         address={address}
         setAddress={setAddress}
+        isInvalid={isInvalid}
       />
 
       <Account
