@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useUserAddress } from "../../components/AddressContext";
 import Header from "../../components/Header";
 
 export default function Address() {
@@ -15,7 +16,7 @@ export default function Address() {
 }
 
 function SearchPanel() {
-  let [address, setAddress] = useState("");
+  let { address, setAddress } = useUserAddress();
   let router = useRouter();
   function handleSubmit(event) {
     event.preventDefault();

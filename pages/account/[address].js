@@ -7,10 +7,11 @@ import useSWR from "swr";
 import { perpetualStatsFetcher } from "../../utils/fetcher";
 import { getUserStats } from "../../utils/query";
 import { isAddress } from "../../utils/helper";
+import { useUserAddress } from "../../components/AddressContext";
 
 export default function Address() {
   let [isInvalid, setIsInvalid] = useState(false);
-  let [address, setAddress] = useState("");
+  let { address, setAddress } = useUserAddress();
 
   let router = useRouter();
 
@@ -35,13 +36,7 @@ export default function Address() {
       <Head>
         <title>Perpetual Protocol Dashboard | {router?.query.address}</title>
       </Head>
-      <Header
-        title="Account Details"
-        isSmall
-        address={address}
-        setAddress={setAddress}
-        isInvalid={isInvalid}
-      />
+      <Header title="Account Details" isSmall isInvalid={isInvalid} />
 
       <Account
         userStats={userStats?.user}

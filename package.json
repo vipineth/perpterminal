@@ -10,10 +10,11 @@
   "dependencies": {
     "@headlessui/react": "^1.2.0",
     "@heroicons/react": "^1.0.1",
+    "@walletconnect/web3-provider": "^1.6.5",
     "bignumber.js": "^9.0.1",
-    "colorthief": "^2.3.2",
     "date-fns": "^2.22.1",
     "dayjs": "^1.10.5",
+    "ethers": "^5.4.6",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
     "isomorphic-fetch": "^3.0.0",
@@ -26,7 +27,9 @@
     "react-table": "^7.7.0",
     "recharts": "^2.0.9",
     "swr": "^0.5.6",
-    "use-ssr": "^1.0.24"
+    "use-ssr": "^1.0.24",
+    "walletlink": "^2.1.9",
+    "web3modal": "^1.9.4"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.4",
