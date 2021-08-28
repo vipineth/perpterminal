@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
-import { DAILY_VOLUME_OPTIONS, USER_PNL_OPTIONS } from "../utils/constants";
+import { USER_PNL_OPTIONS } from "../utils/constants";
 import UserPnLChart from "./account/UserPnLChart";
 import ChartHeader from "./ChartHeader";
 import Spinner from "./Spinner";

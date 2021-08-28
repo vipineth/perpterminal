@@ -7,7 +7,7 @@ import Spinner from "./Spinner";
 import { DAILY_VOLUME_OPTIONS } from "../utils/constants";
 
 export default function HeroChart({ data }) {
-  let [range, setRange] = useState(90);
+  let [range, setRange] = useState(30);
 
   if (!data) return <Spinner />;
 
