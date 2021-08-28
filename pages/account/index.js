@@ -1,16 +1,64 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useSWR from "swr";
+import Account from "../../components/Account";
 import { useUserAddress } from "../../components/AddressContext";
 import Header from "../../components/Header";
+import { useWallet } from "../../components/WalletContext";
+import { perpetualStatsFetcher } from "../../utils/fetcher";
+import { isAddress } from "../../utils/helper";
+import { getUserStats } from "../../utils/query";
 
-export default function Address() {
-  let router = useRouter();
+export default function UserAccount() {
+  let [isInvalid, setIsInvalid] = useState(true);
+  let { address } = useWallet();
 
+  useEffect(() => {
+    if (!isAddress(address)) {
+      setIsInvalid(true);
+    } else {
+      setIsInvalid(false);
+    }
+  }, [address]);
+
+  let { data: userStats } = useSWR(function () {
+    if (!isAddress(address)) {
+      return null;
+    }
+    return getUserStats(address?.toLowerCase());
+  }, perpetualStatsFetcher);
+
+  console.log({ userStats, address });
+  if (address) {
+    return (
+      <LoggedInUser
+        isInvalid={isInvalid}
+        address={address}
+        userStats={userStats}
+      />
+    );
+  }
   return (
     <div className="min-h-screen bg-gray-100">
       <Header noPadding />
       <SearchPanel />
+    </div>
+  );
+}
+
+function LoggedInUser({ isInvalid, address, userStats }) {
+  return (
+    <div className="min-h-screen bg-gray-100">
+      <Head>
+        <title>Perpetual Protocol Dashboard | {address}</title>
+      </Head>
+      <Header title="Your Account Details" isInvalid={isInvalid} isSmall />
+      <Account
+        userStats={userStats?.user}
+        isInvalid={isInvalid}
+        userAddress={address?.toLowerCase()}
+      />
     </div>
   );
 }

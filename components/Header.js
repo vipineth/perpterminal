@@ -35,9 +35,6 @@ function getClassName(isSmall, noPadding) {
 
 function Header({ title, isSmall, noPadding, isInvalid }) {
   let { address, setAddress } = useUserAddress();
-  let { isBrowser } = useSSR();
-
-  let { isOpen, closeModal, openModal } = useModal();
   let wallet = useWallet();
 
   function getTitle() {
@@ -45,9 +42,12 @@ function Header({ title, isSmall, noPadding, isInvalid }) {
     if (title && address && title.includes("Account"))
       return (
         <>
-          {title}{" "}
-          <span className="text-base text-gradient-to-r from-red-500">
-            of {getSmallAddress(address)}
+          {title}
+          <span className="text-base ml-2 mr-2">
+            of
+            <span className="text-green-600 ml-2">
+              {getSmallAddress(address)}
+            </span>
           </span>
         </>
       );
@@ -63,7 +63,7 @@ function Header({ title, isSmall, noPadding, isInvalid }) {
         {(props) => (
           <>
             <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
-              <div className="relative h-16 flex items-center justify-between lg:border-b lg:border-white lg:border-opacity-25">
+              <div className="relative h-20 flex items-center justify-between lg:border-b lg:border-white lg:border-opacity-25">
                 <div className="px-2 flex items-center lg:px-0">
                   <div className="flex-shrink-0 cursor-pointer">
                     <Link href="/">
@@ -126,22 +126,29 @@ function Header({ title, isSmall, noPadding, isInvalid }) {
                     </a>
                   </NavLink>
                 ))}
-                <button
-                  type="button"
-                  onClick={wallet?.connect}
-                  className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-green-500"
-                >
-                  <span>Connect to a wallet</span>
-                </button>
+                {wallet?.web3Provider ? (
+                  <LoggedInUser
+                    address={wallet?.address}
+                    disconnect={wallet?.disconnect}
+                  />
+                ) : (
+                  <button
+                    type="button"
+                    onClick={wallet?.connect}
+                    className="hidden sm:inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                  >
+                    Connect to a wallet
+                  </button>
+                )}
               </div>
             </Disclosure.Panel>
           </>
         )}
       </Disclosure>
       {
-        <header className="py-8 sm:py-10">
-          <div className="max-w-7xl mx-auto flex px-4 sm:px-6 lg:px-8 items-center">
-            <h1 className="text-3xl font-bold text-white hidden md:block">
+        <header className="py-10 md:py-16">
+          <div className="max-w-7xl mx-auto md:flex px-4 sm:px-6 lg:px-8 md:items-center text-center">
+            <h1 className="text-3xl font-bold text-white pb-6 md:pb-0">
               {getTitle()}
             </h1>
             <SearchInput address={address} setAddress={setAddress} />
@@ -179,7 +186,6 @@ function SearchInput({ address, setAddress }) {
               onChange={(e) => {
                 setAddress(e.target.value);
               }}
-              value={address}
             />
             <div className="absolute inset-y-0 right-0 pr-1 flex items-center cursor-pointer">
               <button
@@ -199,7 +205,7 @@ function SearchInput({ address, setAddress }) {
 function LoggedInUser({ address, disconnect }) {
   let { isBrowser } = useSSR();
   return (
-    <div>
+    <div className="hidden lg:block">
       <Menu as="div" className="px-3 relative inline-block text-left">
         {({ open }) => (
           <>

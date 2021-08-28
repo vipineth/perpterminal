@@ -22,6 +22,9 @@ export default function Address() {
     } else {
       setIsInvalid(false);
     }
+    return () => {
+      setAddress("");
+    };
   }, [router.query.address]);
 
   let { data: userStats } = useSWR(function () {

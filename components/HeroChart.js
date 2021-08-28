@@ -19,7 +19,7 @@ export default function HeroChart({ data }) {
     }) || null;
 
   return (
-    <div className="mt-8 md:grid md:grid-cols-3 md:gap-4 space-y-10 md:space-y-0">
+    <div className="mt-8 lg:grid lg:grid-cols-3 lg:gap-4 space-y-10 lg:space-y-0">
       <div className="bg-white rounded-lg shadow px-5 py-6 sm:px-6 col-span-2">
         <div className="rounded-lg h-96">
           <ChartHeader
