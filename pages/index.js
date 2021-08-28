@@ -6,7 +6,6 @@ import { perpetualStatsFetcher } from "../utils/fetcher";
 import HeroChart from "../components/HeroChart";
 import Details from "../components/Details";
 import Spinner from "../components/Spinner";
-import Layout from "../components/Layout";
 import { useEffect } from "react";
 import { useUserAddress } from "../components/AddressContext";
 
@@ -21,7 +20,7 @@ export default function Home() {
   }, []);
 
   return (
-    <Layout>
+    <>
       <div className="min-h-screen bg-gray-100">
         <Head>
           <title>Perpetual Protocol Traders Dashboard </title>
@@ -42,6 +41,6 @@ export default function Home() {
           )}
         </main>
       </div>
-    </Layout>
+    </>
   );
 }

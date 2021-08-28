@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Disclosure } from "@headlessui/react";
-import { MailIcon, SearchIcon } from "@heroicons/react/solid";
+import { SearchIcon } from "@heroicons/react/solid";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 import NavLink from "./NavLink";
@@ -9,6 +8,8 @@ import { getSmallAddress } from "../utils/helper";
 import { useModal } from "./ModalContext";
 import { useWallet } from "./WalletContext";
 import { useUserAddress } from "./AddressContext";
+import useSSR from "use-ssr";
+import Avatar from "./common/Avatar";
 
 const navigation = [
   { label: "Dashboard", pathname: "/" },
@@ -29,9 +30,12 @@ function getClassName(isSmall, noPadding) {
 
 function Header({ title, isSmall, noPadding, isInvalid }) {
   let { address, setAddress } = useUserAddress();
+  let { isBrowser } = useSSR();
 
   let { isOpen, closeModal, openModal } = useModal();
   let wallet = useWallet();
+
+  console.log({ wallet });
 
   function getTitle() {
     if (isInvalid) return "";
@@ -82,6 +86,10 @@ function Header({ title, isSmall, noPadding, isInvalid }) {
                   </div>
                 </div>
 
+                {isBrowser && (
+                  <Avatar seed="0x37F120d2B5e70B43bA91090e4e86699CbAE42C1E" />
+                )}
+
                 <div className="flex lg:hidden">
                   {/* Mobile menu button */}
                   <Disclosure.Button className="bg-green-600 p-2 rounded-md inline-flex items-center justify-center text-green-200 hover:text-white hover:bg-green-500 hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-green-600 focus:ring-white">
@@ -96,7 +104,8 @@ function Header({ title, isSmall, noPadding, isInvalid }) {
 
                 <button
                   type="button"
-                  className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                  onClick={wallet?.connect}
+                  className="hidden sm:inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
                   Connect to a wallet
                 </button>
@@ -112,15 +121,24 @@ function Header({ title, isSmall, noPadding, isInvalid }) {
                     </a>
                   </NavLink>
                 ))}
+                <button
+                  type="button"
+                  className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+                >
+                  {/* <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" /> */}
+                  <span>New Job</span>
+                </button>
               </div>
             </Disclosure.Panel>
           </>
         )}
       </Disclosure>
       {
-        <header className="py-10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
-            <h1 className="text-3xl font-bold text-white">{getTitle()}</h1>
+        <header className="py-8 sm:py-10">
+          <div className="max-w-7xl mx-auto flex px-4 sm:px-6 lg:px-8 items-center">
+            <h1 className="text-3xl font-bold text-white hidden md:block">
+              {getTitle()}
+            </h1>
             <SearchInput address={address} setAddress={setAddress} />
           </div>
         </header>

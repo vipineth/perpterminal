@@ -8,6 +8,7 @@ import * as gtag from "../utils/gtag";
 import "../utils/style.css";
 import { ModalProvider } from "../components/ModalContext";
 import { UserAddressProvider } from "../components/AddressContext";
+import WalletProvider from "../components/WalletContext";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -30,10 +31,11 @@ function MyApp({ Component, pageProps }) {
           content="width=device-width, initial-scale=1"
         ></meta>
       </Head>
-
       <UserAddressProvider>
         <ModalProvider>
-          <Component {...pageProps} />
+          <WalletProvider>
+            <Component {...pageProps} />
+          </WalletProvider>
         </ModalProvider>
       </UserAddressProvider>
     </>
