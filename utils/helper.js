@@ -16,8 +16,9 @@ export const toNiceDateYear = (date) => {
 export const toNiceDate = (date) => {
   return format(fromUnixTime(date), "d MMM");
 };
-export const getSmallAddress = (address) => {
-  return address.slice(0, 6) + "..." + address.slice(-6);
+export const getSmallAddress = (address, width = 6) => {
+  if (!address) return;
+  return address.slice(0, width) + "..." + address.slice(-width);
 };
 
 export function getBigNumber(value) {

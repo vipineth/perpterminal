@@ -1,6 +1,7 @@
+import { Fragment } from "react";
 import Link from "next/link";
-import { Disclosure } from "@headlessui/react";
-import { SearchIcon } from "@heroicons/react/solid";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { SearchIcon, SelectorIcon } from "@heroicons/react/solid";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 import NavLink from "./NavLink";
@@ -10,6 +11,10 @@ import { useWallet } from "./WalletContext";
 import { useUserAddress } from "./AddressContext";
 import useSSR from "use-ssr";
 import Avatar from "./common/Avatar";
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 
 const navigation = [
   { label: "Dashboard", pathname: "/" },
@@ -34,8 +39,6 @@ function Header({ title, isSmall, noPadding, isInvalid }) {
 
   let { isOpen, closeModal, openModal } = useModal();
   let wallet = useWallet();
-
-  console.log({ wallet });
 
   function getTitle() {
     if (isInvalid) return "";
@@ -86,10 +89,6 @@ function Header({ title, isSmall, noPadding, isInvalid }) {
                   </div>
                 </div>
 
-                {isBrowser && (
-                  <Avatar seed="0x37F120d2B5e70B43bA91090e4e86699CbAE42C1E" />
-                )}
-
                 <div className="flex lg:hidden">
                   {/* Mobile menu button */}
                   <Disclosure.Button className="bg-green-600 p-2 rounded-md inline-flex items-center justify-center text-green-200 hover:text-white hover:bg-green-500 hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-green-600 focus:ring-white">
@@ -101,14 +100,20 @@ function Header({ title, isSmall, noPadding, isInvalid }) {
                     )}
                   </Disclosure.Button>
                 </div>
-
-                <button
-                  type="button"
-                  onClick={wallet?.connect}
-                  className="hidden sm:inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                >
-                  Connect to a wallet
-                </button>
+                {wallet?.web3Provider ? (
+                  <LoggedInUser
+                    address={wallet?.address}
+                    disconnect={wallet?.disconnect}
+                  />
+                ) : (
+                  <button
+                    type="button"
+                    onClick={wallet?.connect}
+                    className="hidden sm:inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                  >
+                    Connect to a wallet
+                  </button>
+                )}
               </div>
             </div>
 
@@ -123,10 +128,10 @@ function Header({ title, isSmall, noPadding, isInvalid }) {
                 ))}
                 <button
                   type="button"
-                  className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-indigo-500"
+                  onClick={wallet?.connect}
+                  className="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-green-500"
                 >
-                  {/* <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" /> */}
-                  <span>New Job</span>
+                  <span>Connect to a wallet</span>
                 </button>
               </div>
             </Disclosure.Panel>
@@ -191,4 +196,73 @@ function SearchInput({ address, setAddress }) {
   );
 }
 
+function LoggedInUser({ address, disconnect }) {
+  let { isBrowser } = useSSR();
+  return (
+    <div>
+      <Menu as="div" className="px-3 relative inline-block text-left">
+        {({ open }) => (
+          <>
+            <div>
+              <Menu.Button className="group w-full bg-white rounded-md px-3.5 py-2 text-sm text-left font-medium text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-green-500">
+                <span className="flex w-full justify-between items-center">
+                  <span className="flex min-w-0 items-center justify-between space-x-3">
+                    {isBrowser && (
+                      <Avatar
+                        className="w-4 h-4 bg-gray-300 rounded-full flex-shrink-0"
+                        seed={address}
+                      />
+                    )}
+                    <span className="flex-1 flex flex-col min-w-0">
+                      <span className="text-gray-900 text-xs font-medium">
+                        {getSmallAddress(address)}
+                      </span>
+                    </span>
+                  </span>
+                  <SelectorIcon
+                    className="ml-2 flex-shrink-0 h-5 w-5 text-gray-900 group-hover:text-gray-500"
+                    aria-hidden="true"
+                  />
+                </span>
+              </Menu.Button>
+            </div>
+            <Transition
+              show={open}
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items
+                static
+                className="z-10 mx-3 origin-top absolute right-0 left-0 mt-1 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none"
+              >
+                <div className="py-1">
+                  <Menu.Item>
+                    {({ active }) => (
+                      <button
+                        onClick={disconnect}
+                        className={classNames(
+                          active
+                            ? "bg-gray-100 text-gray-900"
+                            : "text-gray-700",
+                          "block px-4 py-2 text-sm"
+                        )}
+                      >
+                        Logout
+                      </button>
+                    )}
+                  </Menu.Item>
+                </div>
+              </Menu.Items>
+            </Transition>
+          </>
+        )}
+      </Menu>
+    </div>
+  );
+}
 export default Header;

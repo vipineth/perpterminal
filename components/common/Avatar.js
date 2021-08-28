@@ -133,7 +133,7 @@ export default class Avatar extends Component {
     }
 
     const opts = options || {};
-    const size = opts.size || 8;
+    const size = opts.size || 6;
     const scale = opts.scale || 4;
     const seed =
       opts.seed || Math.floor(Math.random() * Math.pow(10, 16)).toString(16);
