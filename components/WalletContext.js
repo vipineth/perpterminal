@@ -3,7 +3,6 @@ import React, {
   useCallback,
   useEffect,
   useReducer,
-  useState,
   useContext,
 } from "react";
 import { useModal } from "./ModalContext";

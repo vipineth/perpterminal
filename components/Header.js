@@ -19,6 +19,7 @@ function classNames(...classes) {
 const navigation = [
   { label: "Dashboard", pathname: "/" },
   { label: "Account", pathname: "/account" },
+  { label: "Address Book", pathname: "/address-book" },
 ];
 
 function getClassName(isSmall, noPadding) {
@@ -79,7 +80,11 @@ function Header({ title, isSmall, noPadding, isInvalid }) {
                   <div className="hidden lg:block lg:ml-10">
                     <div className="flex space-x-4">
                       {navigation.map((item) => (
-                        <NavLink key={item.pathname} href={item.pathname}>
+                        <NavLink
+                          key={item.pathname}
+                          href={item.pathname}
+                          exact={item.pathname === "/"}
+                        >
                           <a className="rounded-md py-2 px-3 text-sm font-medium text-white">
                             {item.label}
                           </a>
@@ -217,6 +222,7 @@ function LoggedInUser({ address, disconnect }) {
                       <Avatar
                         className="w-4 h-4 bg-gray-300 rounded-full flex-shrink-0"
                         seed={address}
+                        size={6}
                       />
                     )}
                     <span className="flex-1 flex flex-col min-w-0">

@@ -40,7 +40,7 @@ function Account({ userStats, isInvalid }) {
   }
 
   return (
-    <main className="-mt-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+    <main className="-mt-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
       <div className="mt-8 md:grid md:grid-cols-3 md:gap-4 space-y-10 md:space-y-0">
         <div className="bg-white rounded-lg shadow px-4 py-4 col-span-2">
           <div className="rounded-lg h-96">

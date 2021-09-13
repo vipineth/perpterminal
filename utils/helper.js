@@ -117,8 +117,11 @@ export function getUserStatsInfo(userStats) {
   }
 }
 
-export function isAddress(address) {
-  return /^(0x){1}[0-9a-fA-F]{40}$/i.test(address);
+export function isAddress(address = "") {
+  if (address) {
+    let trimmedAddress = address.trim();
+    return /^(0x){1}[0-9a-fA-F]{40}$/i.test(trimmedAddress);
+  }
 }
 
 export function isBrowser() {

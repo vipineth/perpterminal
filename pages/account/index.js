@@ -29,7 +29,6 @@ export default function UserAccount() {
     return getUserStats(address?.toLowerCase());
   }, perpetualStatsFetcher);
 
-  console.log({ userStats, address });
   if (address) {
     return (
       <LoggedInUser
