@@ -10,6 +10,7 @@ export default function StakingDetails() {
     perpetualStakingFetcher
   );
   const { data } = useSWR(getRecentTx, perpetualStakingFetcher);
+  if (!data) return "";
   let { stakeTransactions, unstakeTransactions, withdrawTransactions } = data;
 
   return (
