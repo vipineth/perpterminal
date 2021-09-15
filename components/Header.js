@@ -20,6 +20,7 @@ const navigation = [
   { label: "Dashboard", pathname: "/" },
   { label: "Account", pathname: "/account" },
   { label: "Address Book", pathname: "/address-book" },
+  { label: "Staking", pathname: "/staking" },
 ];
 
 function getClassName(isSmall, noPadding) {

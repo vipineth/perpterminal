@@ -13,6 +13,13 @@ export function perpetualStatsFetcher(query, variables) {
     variables
   );
 }
+export function perpetualStakingFetcher(query, variables) {
+  return request(
+    "https://api.thegraph.com/subgraphs/name/vipineth/perp-staking-stats",
+    query,
+    variables
+  );
+}
 export function testPerpetualStatsFetcher(query) {
   return request(
     "https://api.thegraph.com/subgraphs/id/QmefLtiXgu5KQ7Zc3XN2pNqjfDvzvSLvDUNy8kD8FcwbpJ",

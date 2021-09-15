@@ -10,10 +10,22 @@ export const toK = (num) => {
 };
 
 export const toNiceDateYear = (date) => {
+  if (isNaN(Number(date))) {
+    return "";
+  }
   return format(fromUnixTime(date), "MMMM dd, yyy");
+};
+export const toNiceDateHourMinutes = (date) => {
+  if (isNaN(Number(date))) {
+    return "";
+  }
+  return format(fromUnixTime(date), "Pp");
 };
 
 export const toNiceDate = (date) => {
+  if (isNaN(Number(date))) {
+    return "";
+  }
   return format(fromUnixTime(date), "d MMM");
 };
 export const getSmallAddress = (address, width = 6) => {

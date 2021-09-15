@@ -12,6 +12,12 @@ export const USER_PNL_OPTIONS = {
   500: 500,
   Max: 1000,
 };
+export const PERP_STAKING = {
+  "30D": 30,
+  "50D": 50,
+  "100D": 100,
+  Max: 1000,
+};
 
 export const walletsConfig = [
   {

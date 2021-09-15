@@ -1,3 +1,4 @@
+import getUnixTime from "date-fns/getUnixTime";
 import { gql } from "graphql-request";
 
 export const top5Trader = `{
@@ -230,6 +231,70 @@ export function getTopTenTraders(limit = 300) {
       totalPnlAmount
       blockNumber
       timestamp
+    }
+  }
+  `;
+}
+export function getStakingDayDatas() {
+  return `query StakingDayData {
+    stakingDayDatas(first: 1000, orderBy: date, orderDirection: desc) {
+      totalStaked
+      totalUnstaked
+      totalWithdrawn
+      id
+      date
+    }
+  }`;
+}
+export function getStakingInfo() {
+  return `query StakingInfo {
+    perpStakingInfo(id: "1") {
+      totalStakedTokens
+      totalWithdrawnTokens
+      totalStakers
+    }
+  }`;
+}
+export function getUnlockedTokens() {
+  let now = getUnixTime(new Date());
+  let oneDatTimestamp = 86400;
+  let numberOfDays = 7;
+  return `query MyQuery {
+    unstakeTransactions(first: 10, where: {tokenUnlockTimestamp_gt: ${now}, tokenUnlockTimestamp_lt: ${
+    now + oneDatTimestamp * numberOfDays
+  }}) {
+      amount
+      date
+      id
+      staker
+      tokenUnlockTimestamp
+      transactionHash
+    }
+  }`;
+}
+export function getRecentTx() {
+  return `query RecentTx {
+    withdrawTransactions(first: 25, orderBy: date, orderDirection: desc) {
+      amount
+      date
+      id
+      staker
+      transactionHash
+    }
+    unstakeTransactions(first: 25, orderBy: date, orderDirection: desc) {
+      amount
+      date
+      id
+      staker
+      tokenUnlockTimestamp
+      transactionHash
+    }
+    stakeTransactions(first: 25, orderBy: date, orderDirection: desc) {
+      amount
+      date
+      id
+      transactionHash
+      staker
     }
   }
   `;
