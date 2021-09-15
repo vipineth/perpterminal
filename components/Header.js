@@ -58,6 +58,17 @@ function Header({ title, isSmall, noPadding, isInvalid }) {
 
   return (
     <div className={`bg-gray-800 ${getClassName(isSmall, noPadding)}`}>
+      <p className="bg-blue-500 h-10 flex items-center justify-center text-sm font-medium text-white px-4 sm:px-6 lg:px-8">
+        Get 40% discount off your trading fees by using
+        <a
+          href="https://referral.perp.exchange?code=perpterminal"
+          rel="noopener"
+          className="underline ml-1"
+          target="_blank"
+        >
+          this link
+        </a>
+      </p>
       <Disclosure
         as="nav"
         className="bg-gray-800 border-b border-gray-300 border-opacity-25 lg:border-none"
