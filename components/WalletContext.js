@@ -91,7 +91,6 @@ function reducer(state, action) {
 }
 
 export default function WalletProvider(props) {
-  let { isOpen, closeModal } = useModal();
   const [state, dispatch] = useReducer(reducer, initialState);
   const { provider, web3Provider, address, chainId } = state;
 

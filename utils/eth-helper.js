@@ -4,12 +4,14 @@ export function getChainData(chainId) {
   if (!chainId) {
     return null;
   }
-  const chainData = supportedChains.filter(
+  let chainData = supportedChains.filter(
     (chain) => chain.chain_id === chainId
   )[0];
 
   if (!chainData) {
-    throw new Error("ChainId missing or not supported");
+    chainData = {
+      error: "Network Not Supported",
+    };
   }
 
   return chainData;

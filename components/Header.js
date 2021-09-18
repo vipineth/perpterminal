@@ -6,7 +6,6 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 import NavLink from "./NavLink";
 import { getSmallAddress } from "../utils/helper";
-import { useModal } from "./ModalContext";
 import { useWallet } from "./WalletContext";
 import { useUserAddress } from "./AddressContext";
 import useSSR from "use-ssr";
