@@ -15,7 +15,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const navigation = [
+export const navigation = [
   { label: "Dashboard", pathname: "/" },
   { label: "Account", pathname: "/account" },
   { label: "Address Book", pathname: "/address-book" },

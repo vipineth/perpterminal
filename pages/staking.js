@@ -11,6 +11,7 @@ import ChartHeader from "../components/ChartHeader";
 import { PERP_STAKING } from "../utils/constants";
 import StakingStats from "../components/staking/StakingStats";
 import StakingDetails from "../components/staking/StakingDetails";
+import Layout from "../components/Layout";
 
 export default function Home() {
   const { data, error } = useSWR(getStakingDayDatas, perpetualStakingFetcher);
@@ -25,7 +26,7 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <Layout>
       <div className="min-h-screen bg-gray-100">
         <Head>
           <title>Perpetual Protocol Staking Dashboard </title>
@@ -63,6 +64,6 @@ export default function Home() {
           )}
         </main>
       </div>
-    </>
+    </Layout>
   );
 }

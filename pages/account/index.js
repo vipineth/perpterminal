@@ -5,6 +5,7 @@ import useSWR from "swr";
 import Account from "../../components/Account";
 import { useUserAddress } from "../../components/AddressContext";
 import Header from "../../components/Header";
+import Layout from "../../components/Layout";
 import { useWallet } from "../../components/WalletContext";
 import { perpetualStatsFetcher } from "../../utils/fetcher";
 import { isAddress } from "../../utils/helper";
@@ -39,10 +40,12 @@ export default function UserAccount() {
     );
   }
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Header noPadding />
-      <SearchPanel />
-    </div>
+    <Layout>
+      <div className="min-h-screen bg-gray-100">
+        <Header noPadding />
+        <SearchPanel />
+      </div>
+    </Layout>
   );
 }
 

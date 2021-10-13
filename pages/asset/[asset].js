@@ -10,6 +10,7 @@ import { getName } from "../../hooks/useAmms";
 import HeroChart from "../../components/HeroChart";
 import Spinner from "../../components/Spinner";
 import AssetDetails from "../../components/AssetDetails";
+import Layout from "../../components/Layout";
 
 export default function Address() {
   let router = useRouter();
@@ -27,21 +28,23 @@ export default function Address() {
     )} (${router?.query.asset?.toUpperCase()})`;
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Head>
-        <title>Perpetual Dashboard | {assetLabel}</title>
-      </Head>
-      <Header title={assetLabel} />
-      <main className="-mt-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        {data ? (
-          <>
-            <HeroChart data={data?.ammDayDatas} />
-            <AssetDetails asset={getAddressFromName(router?.query.asset)} />
-          </>
-        ) : (
-          <Spinner />
-        )}
-      </main>
-    </div>
+    <Layout>
+      <div className="min-h-screen bg-gray-100">
+        <Head>
+          <title>Perpetual Dashboard | {assetLabel}</title>
+        </Head>
+        <Header title={assetLabel} />
+        <main className="-mt-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+          {data ? (
+            <>
+              <HeroChart data={data?.ammDayDatas} />
+              <AssetDetails asset={getAddressFromName(router?.query.asset)} />
+            </>
+          ) : (
+            <Spinner />
+          )}
+        </main>
+      </div>
+    </Layout>
   );
 }

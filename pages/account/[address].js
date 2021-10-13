@@ -8,6 +8,7 @@ import { perpetualStatsFetcher } from "../../utils/fetcher";
 import { getUserStats } from "../../utils/query";
 import { isAddress } from "../../utils/helper";
 import { useUserAddress } from "../../components/AddressContext";
+import Layout from "../../components/Layout";
 
 export default function Address() {
   let [isInvalid, setIsInvalid] = useState(false);
@@ -35,17 +36,19 @@ export default function Address() {
   }, perpetualStatsFetcher);
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Head>
-        <title>Perpetual Protocol Dashboard | {router?.query.address}</title>
-      </Head>
-      <Header title="Account Details" isSmall isInvalid={isInvalid} />
+    <Layout>
+      <div className="min-h-screen bg-gray-100">
+        <Head>
+          <title>Perpetual Protocol Dashboard | {router?.query.address}</title>
+        </Head>
+        <Header title="Account Details" isSmall isInvalid={isInvalid} />
 
-      <Account
-        userStats={userStats?.user}
-        isInvalid={isInvalid}
-        userAddress={router?.query.address?.toLowerCase()}
-      />
-    </div>
+        <Account
+          userStats={userStats?.user}
+          isInvalid={isInvalid}
+          userAddress={router?.query.address?.toLowerCase()}
+        />
+      </div>
+    </Layout>
   );
 }

@@ -8,6 +8,7 @@ import Details from "../components/Details";
 import Spinner from "../components/Spinner";
 import { useEffect } from "react";
 import { useUserAddress } from "../components/AddressContext";
+import Layout from "../components/Layout";
 
 export default function Home() {
   const { data, error } = useSWR(getVolumeQuery, perpetualStatsFetcher);
@@ -20,7 +21,7 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <Layout>
       <div className="min-h-screen bg-gray-100">
         <Head>
           <title>Perpetual Protocol Traders Dashboard </title>
@@ -41,6 +42,6 @@ export default function Home() {
           )}
         </main>
       </div>
-    </>
+    </Layout>
   );
 }

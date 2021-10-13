@@ -10,6 +10,7 @@ import { getSmallAddress, isAddress } from "../utils/helper";
 import useLocalStorage from "../hooks/useLocalStorage";
 import Link from "next/link";
 import { useWallet } from "../components/WalletContext";
+import Layout from "../components/Layout";
 
 function isDuplicate(address, allAddresses) {
   return allAddresses.findIndex((a) => a.address === address) === -1
@@ -40,7 +41,7 @@ export default function Watchlist() {
     }
   }
   return (
-    <>
+    <Layout>
       <div className="min-h-screen bg-gray-100">
         <Head>
           <title>Perpetual Protocol Traders Dashboard </title>
@@ -70,7 +71,7 @@ export default function Watchlist() {
           </div>
         </main>
       </div>
-    </>
+    </Layout>
   );
 }
 
