@@ -29,11 +29,10 @@ export default function Home() {
     <Layout>
       <div className="min-h-screen bg-gray-100">
         <Head>
-          <title>Perpetual Protocol Staking Dashboard </title>
-          <meta
-            name="description"
-            content="Take a deeper look all the perpetual trades on perp.exchaneg. It will help you view net profits, losses, volume and assets you traded. It will also help you track assets, daily volume and recent trades on perp exchange."
-          />
+          <title>
+            PerpTerminal | Staking Information of Perpetual Protocol (PERP)
+          </title>
+          <meta name="description" content=" " />
         </Head>
         <Header title="PERP Staking Overview" />
         <main className="-mt-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">

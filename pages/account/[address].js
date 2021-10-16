@@ -39,7 +39,9 @@ export default function Address() {
     <Layout>
       <div className="min-h-screen bg-gray-100">
         <Head>
-          <title>Perpetual Protocol Dashboard | {router?.query.address}</title>
+          <title>
+            PerpTerminal | Account Details of {router?.query.address}
+          </title>
         </Head>
         <Header title="Account Details" isSmall isInvalid={isInvalid} />
 

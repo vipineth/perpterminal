@@ -24,10 +24,13 @@ export default function Home() {
     <Layout>
       <div className="min-h-screen bg-gray-100">
         <Head>
-          <title>Perpetual Protocol Traders Dashboard </title>
+          <title>
+            PerpTerminal | Analytics Dashboard for Perpetual Protocol (PERP)
+            Traders 🔥
+          </title>
           <meta
             name="description"
-            content="Take a deeper look all the perpetual trades on perp.exchaneg. It will help you view net profits, losses, volume and assets you traded. It will also help you track assets, daily volume and recent trades on perp exchange."
+            content="Analytics on all your Perpetual Protocol (PERP) trades. PerpTerminal assists traders to make more informed trading decisions by allowing access to various analytics."
           />
         </Head>
         <Header title="Perp Exchange Overview" />
