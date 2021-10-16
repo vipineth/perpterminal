@@ -31,7 +31,7 @@ export default function Address() {
     <Layout>
       <div className="min-h-screen bg-gray-100">
         <Head>
-          <title>PerpTerminal | Analytics of {assetLabel} Token</title>
+          <title>Analytics of {assetLabel} Token | PerpTerminal</title>
         </Head>
         <Header title={assetLabel} />
         <main className="-mt-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">

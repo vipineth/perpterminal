@@ -76,7 +76,7 @@ function SearchPanel() {
     <>
       <div className="bg-white py-16 sm:py-24">
         <Head>
-          <title>PerpTerminal | User Account</title>
+          <title>User Account | PerpTerminal </title>
         </Head>
         <div className="relative sm:py-16">
           <div aria-hidden="true" className="hidden sm:block">

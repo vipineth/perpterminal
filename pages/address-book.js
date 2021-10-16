@@ -44,7 +44,7 @@ export default function Watchlist() {
     <Layout>
       <div className="min-h-screen bg-gray-100">
         <Head>
-          <title>PerpTerminal | Address Book </title>
+          <title>Address Book | PerpTerminal </title>
           <meta
             name="description"
             content="Analytics on all your Perpetual Protocol trades. PerpTerminal assists traders to make more informed trading decisions by allowing access to various analytics."

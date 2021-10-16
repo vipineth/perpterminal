@@ -30,7 +30,7 @@ export default function Home() {
       <div className="min-h-screen bg-gray-100">
         <Head>
           <title>
-            PerpTerminal | Staking Information of Perpetual Protocol (PERP)
+            Staking Information of Perpetual Protocol (PERP) | PerpTerminal
           </title>
           <meta name="description" content=" " />
         </Head>

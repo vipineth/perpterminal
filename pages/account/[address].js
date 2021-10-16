@@ -40,7 +40,7 @@ export default function Address() {
       <div className="min-h-screen bg-gray-100">
         <Head>
           <title>
-            PerpTerminal | Account Details of {router?.query.address}
+            Account Details of {router?.query.address} | PerpTerminal
           </title>
         </Head>
         <Header title="Account Details" isSmall isInvalid={isInvalid} />

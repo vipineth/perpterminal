@@ -25,8 +25,8 @@ export default function Home() {
       <div className="min-h-screen bg-gray-100">
         <Head>
           <title>
-            PerpTerminal | Analytics Dashboard for Perpetual Protocol (PERP)
-            Traders 🔥
+            Analytics Dashboard for Perpetual Protocol (PERP) Traders 🔥 |
+            PerpTerminal
           </title>
           <meta
             name="description"
