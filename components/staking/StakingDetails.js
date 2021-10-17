@@ -16,7 +16,7 @@ export default function StakingDetails() {
   return (
     <div>
       <AfterCooldown
-        heading="Tokens Unlocked After Cooldown in next 7 Days"
+        heading="Tokens Unlocked After Cooldown in next 3 Days"
         data={afterCooldownTx?.unstakeTransactions}
       />
       <RecentTransactions data={stakeTransactions} heading="Recently Staked" />

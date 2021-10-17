@@ -16,6 +16,7 @@ import {
   toNiceDate,
   toNiceDateYear,
   getSmallNumber,
+  toKWithoutDollar,
 } from "../../utils/helper";
 import CustomResponsiveChart from "../common/CustomResponsiveChart";
 
@@ -38,8 +39,8 @@ function StakingChart(props) {
         />
         <YAxis
           fontSize={14}
-          width={40}
-          tickFormatter={(d) => toK(getSmallNumber(d))}
+          width={45}
+          tickFormatter={(d) => toKWithoutDollar(getSmallNumber(d))}
           padding={{ top: 20 }}
         />
         <Tooltip

@@ -9,6 +9,10 @@ export const toK = (num) => {
   return "$ " + Numeral(num).format("0,0.[00]a");
 };
 
+export const toKWithoutDollar = (num) => {
+  return Numeral(num).format("0,0.[00]a");
+};
+
 export const toNiceDateYear = (date) => {
   if (isNaN(Number(date))) {
     return "";

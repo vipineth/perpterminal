@@ -258,9 +258,9 @@ export function getStakingInfo() {
 export function getUnlockedTokens() {
   let now = getUnixTime(new Date());
   let oneDatTimestamp = 86400;
-  let numberOfDays = 7;
+  let numberOfDays = 3;
   return `query MyQuery {
-    unstakeTransactions(first: 10, where: {tokenUnlockTimestamp_gt: ${now}, tokenUnlockTimestamp_lt: ${
+    unstakeTransactions(first: 100, where: {tokenUnlockTimestamp_gt: ${now}, tokenUnlockTimestamp_lt: ${
     now + oneDatTimestamp * numberOfDays
   }}) {
       amount

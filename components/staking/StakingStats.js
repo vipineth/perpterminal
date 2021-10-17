@@ -7,7 +7,12 @@ import {
   ChartBarIcon,
   ColorSwatchIcon,
 } from "@heroicons/react/solid";
-import { getSmallNumber, numberWithCommas, toK } from "../../utils/helper";
+import {
+  getSmallNumber,
+  numberWithCommas,
+  toK,
+  toKWithoutDollar,
+} from "../../utils/helper";
 
 let icons = {
   volume: <ChartBarIcon className="h-4 w-4 text-white" aria-hidden="true" />,
@@ -36,7 +41,7 @@ export default function StakingStats(props) {
           </dt>
           <dd className="ml-16 flex items-baseline">
             <p className="text-2xl font-semibold text-gray-900">
-              {toK(
+              {toKWithoutDollar(
                 getSmallNumber(stakingInfo?.perpStakingInfo.totalStakedTokens)
               )}
             </p>
@@ -53,7 +58,7 @@ export default function StakingStats(props) {
           </dt>
           <dd className="ml-16 flex items-baseline">
             <p className="text-2xl font-semibold text-gray-900">
-              {toK(
+              {toKWithoutDollar(
                 getSmallNumber(
                   stakingInfo?.perpStakingInfo.totalWithdrawnTokens
                 )
