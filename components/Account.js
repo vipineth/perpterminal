@@ -28,7 +28,7 @@ function Account({ userStats, isInvalid }) {
     return (
       <div className="mx-auto max-w-3xl">
         <h1 className="text-3xl font-bold text-gray-600 text-center pt-24">
-          No transaction found for this address.
+          Sorry, no transactions found for this address!
         </h1>
         <p className="text-center text-xl pt-12">
           <a href="https://perp.exchange" className="underline ">

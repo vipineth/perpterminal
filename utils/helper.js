@@ -25,6 +25,12 @@ export const toNiceDateHourMinutes = (date) => {
   }
   return format(fromUnixTime(date), "Pp");
 };
+export const toNiceDateInWords = (date) => {
+  if (isNaN(Number(date))) {
+    return "";
+  }
+  return format(fromUnixTime(date), "ccc, do MMM - H:m aaa");
+};
 
 export const toNiceDate = (date) => {
   if (isNaN(Number(date))) {

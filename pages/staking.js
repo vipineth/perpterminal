@@ -12,6 +12,7 @@ import { PERP_STAKING } from "../utils/constants";
 import StakingStats from "../components/staking/StakingStats";
 import StakingDetails from "../components/staking/StakingDetails";
 import Layout from "../components/Layout";
+import TopStakers from "../components/staking/TopStakers";
 
 export default function Home() {
   const { data, error } = useSWR(getStakingDayDatas, perpetualStakingFetcher);
@@ -57,6 +58,7 @@ export default function Home() {
                 </div>
               </div>
               <StakingDetails />
+              <TopStakers />
             </>
           ) : (
             <Spinner />

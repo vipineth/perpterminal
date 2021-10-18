@@ -256,12 +256,14 @@ export function getStakingInfo() {
   }`;
 }
 export function getUnlockedTokens() {
-  let now = getUnixTime(new Date());
+  let start = new Date();
+  start.setUTCHours(start.getHours() - 5.5, 0, 0, 0);
+  let dayStartTimestamp = getUnixTime(start);
   let oneDatTimestamp = 86400;
   let numberOfDays = 3;
   return `query MyQuery {
-    unstakeTransactions(first: 100, where: {tokenUnlockTimestamp_gt: ${now}, tokenUnlockTimestamp_lt: ${
-    now + oneDatTimestamp * numberOfDays
+    unstakeTransactions(first: 20,where: {tokenUnlockTimestamp_gt: ${dayStartTimestamp}, tokenUnlockTimestamp_lt: ${
+    dayStartTimestamp + oneDatTimestamp * numberOfDays
   }}) {
       amount
       date
@@ -298,4 +300,13 @@ export function getRecentTx() {
     }
   }
   `;
+}
+export function getTopStakers() {
+  return `query GetTopStakers {
+    stakers(first: 25, orderBy: totalStaked, orderDirection: desc) {
+      id
+      totalStaked
+      totalWithdrawn
+    }
+  }`;
 }

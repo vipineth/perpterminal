@@ -15,7 +15,7 @@ export default function RecentTransactions({ heading = "", data }) {
 
   return (
     <div className="">
-      <h3 className="py-5 text-lg font-bold text-gray-700">{heading}</h3>
+      {/* <h3 className="py-5 text-lg font-bold text-gray-700">{heading}</h3> */}
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">

@@ -36,3 +36,5 @@ export const walletsConfig = [
     connecter: "fortmatic",
   },
 ];
+
+export const PERP_PRICE_URL = `https://api.coingecko.com/api/v3/simple/price?ids=perpetual-protocol&vs_currencies=usd`;

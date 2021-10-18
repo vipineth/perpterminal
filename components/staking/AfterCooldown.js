@@ -6,12 +6,21 @@ import {
   getSmallAddress,
   getSmallNumber,
   numberWithCommas,
-  toNiceDateHourMinutes,
+  toNiceDateInWords,
 } from "../../utils/helper";
-import Badge from "../common/Badge";
+import useSWRImmutable from "swr/immutable";
+import { getUnlockedTokens } from "../../utils/query";
+import { perpetualStakingFetcher } from "../../utils/fetcher";
 
-export default function AfterCooldown({ heading = "", data }) {
-  if (!data) return "Loading";
+export default function AfterCooldown({ heading = "" }) {
+  const { data } = useSWRImmutable(
+    getUnlockedTokens(),
+    perpetualStakingFetcher
+  );
+
+  let unstakeTransactions = data?.unstakeTransactions;
+
+  if (!unstakeTransactions) return "Loading";
 
   return (
     <div className="">
@@ -22,8 +31,8 @@ export default function AfterCooldown({ heading = "", data }) {
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
               <table className="min-w-full divide-y divide-gray-200">
                 <THead />
-                {data
-                  ?.sort(
+                {unstakeTransactions
+                  .sort(
                     (a, b) => a.tokenUnlockTimestamp - b.tokenUnlockTimestamp
                   )
                   .map((d, index) => (
@@ -54,7 +63,7 @@ function TBody(props) {
           {numberWithCommas(getSmallNumber(props.amount))}
         </td>
         <td className="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-700">
-          {toNiceDateHourMinutes(props.tokenUnlockTimestamp)}
+          {toNiceDateInWords(props.tokenUnlockTimestamp)}
         </td>
 
         <td className="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-700">
@@ -91,7 +100,7 @@ function THead() {
           scope="col"
           className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
         >
-          Unlocked Time
+          Unlock Time
         </th>
         <th
           scope="col"
