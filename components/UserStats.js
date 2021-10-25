@@ -1,7 +1,4 @@
-import useSWR from "swr";
-import { perpetualStatsFetcher } from "../utils/fetcher";
 import { getUserStatsInfo } from "../utils/helper";
-import { getUserStats } from "../utils/query";
 
 export default function UserStats({ userStats }) {
   let stats = getUserStatsInfo(userStats);
