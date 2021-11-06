@@ -5,7 +5,6 @@ import React, {
   useReducer,
   useContext,
 } from "react";
-import { useModal } from "./ModalContext";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import WalletLink from "walletlink";
 import Web3Modal from "web3modal";
@@ -32,7 +31,8 @@ const providerOptions = {
   },
   "custom-walletlink": {
     display: {
-      logo: "https://play-lh.googleusercontent.com/PjoJoG27miSglVBXoXrxBSLveV6e3EeBPpNY55aiUUBM9Q1RCETKCOqdOkX2ZydqVf0",
+      logo:
+        "https://play-lh.googleusercontent.com/PjoJoG27miSglVBXoXrxBSLveV6e3EeBPpNY55aiUUBM9Q1RCETKCOqdOkX2ZydqVf0",
       name: "Coinbase",
       description: "Connect to Coinbase Wallet (not Coinbase App)",
     },
@@ -94,7 +94,7 @@ export default function WalletProvider(props) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { provider, web3Provider, address, chainId } = state;
 
-  const connect = useCallback(async function () {
+  const connect = useCallback(async function() {
     // This is the initial `provider` that is returned when
     // using web3Modal to connect. Can be MetaMask or WalletConnect.
     const provider = await web3Modal.connect();
@@ -119,7 +119,7 @@ export default function WalletProvider(props) {
   }, []);
 
   const disconnect = useCallback(
-    async function () {
+    async function() {
       await web3Modal.clearCachedProvider();
       if (provider?.disconnect && typeof provider.disconnect === "function") {
         await provider.disconnect();

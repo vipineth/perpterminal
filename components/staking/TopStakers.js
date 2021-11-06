@@ -2,7 +2,6 @@ import useSWR from "swr";
 import useSWRImmutable from "swr/immutable";
 import { perpetualStakingFetcher, urlFetcher } from "../../utils/fetcher";
 import { getTopStakers } from "../../utils/query";
-import Link from "next/link";
 import { getSmallNumber, numberWithCommas, toK } from "../../utils/helper";
 import { PERP_PRICE_URL } from "../../utils/constants";
 

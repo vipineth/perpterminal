@@ -4,13 +4,14 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { SearchIcon, SelectorIcon } from "@heroicons/react/solid";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
-import NavLink from "./NavLink";
-import { getSmallAddress } from "../utils/helper";
-import { useWallet } from "./WalletContext";
-import { useUserAddress } from "./AddressContext";
 import useSSR from "use-ssr";
-import Avatar from "./common/Avatar";
-import ReferralBanner from "./ReferralBanner";
+import NavLink from "../NavLink";
+import { getSmallAddress } from "../../utils/helper";
+import { useWallet } from "../WalletContext";
+import { useUserAddress } from "../AddressContext";
+import Avatar from "../common/Avatar";
+import ReferralBanner from "../ReferralBanner";
+import TopFilter from "./TopFilter";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -36,26 +37,16 @@ function getClassName(isSmall, noPadding) {
   }
 }
 
-function Header({ title, isSmall, noPadding, isInvalid }) {
+function LeaderboardHeader({
+  title,
+  isSmall,
+  noPadding,
+  tabs,
+  activeTab,
+  setActiveTab,
+}) {
   let { address, setAddress } = useUserAddress();
   let wallet = useWallet();
-
-  function getTitle() {
-    if (isInvalid) return "";
-    if (title && address && title.includes("Account"))
-      return (
-        <>
-          {title}
-          <span className="text-base ml-2 mr-2">
-            of
-            <span className="text-green-600 ml-2">
-              {getSmallAddress(address)}
-            </span>
-          </span>
-        </>
-      );
-    if (title) return title;
-  }
 
   return (
     <div className={`bg-gray-800 ${getClassName(isSmall, noPadding)}`}>
@@ -154,58 +145,19 @@ function Header({ title, isSmall, noPadding, isInvalid }) {
         )}
       </Disclosure>
       {
-        <header className="py-10 md:py-16">
-          <div className="max-w-7xl mx-auto md:flex px-4 sm:px-6 lg:px-8 md:items-center text-center">
+        <header className="pt-16 pb-6">
+          <div className="max-w-7xl mx-auto md:flex px-4 sm:px-6 lg:px-8 md:items-center text-center justify-between">
             <h1 className="text-3xl font-bold text-white pb-6 md:pb-0">
-              {getTitle()}
+              {title}
             </h1>
-            <SearchInput address={address} setAddress={setAddress} />
+            <TopFilter
+              tabs={tabs}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+            />
           </div>
         </header>
       }
-    </div>
-  );
-}
-
-function SearchInput({ address, setAddress }) {
-  let router = useRouter();
-  return (
-    <div className="flex-1 px-2 flex justify-center lg:ml-6 lg:justify-end">
-      <div className="max-w-lg w-full lg:max-w-m">
-        <label htmlFor="search" className="sr-only">
-          Search by Address
-        </label>
-        <div className="relative text-gray-400 focus-within:text-gray-600">
-          <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-            <SearchIcon className="h-5 w-5" aria-hidden="true" />
-          </div>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              router.push(`/account/${address}`);
-            }}
-          >
-            <input
-              id="search"
-              className="block w-full bg-white py-2 pl-10 pr-3 border border-transparent rounded-md leading-5 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-green-600 focus:ring-white focus:border-white sm:text-sm"
-              placeholder="Search by Address"
-              type="search"
-              name="search"
-              onChange={(e) => {
-                setAddress(e.target.value);
-              }}
-            />
-            <div className="absolute inset-y-0 right-0 pr-1 flex items-center cursor-pointer">
-              <button
-                type="submit"
-                className="inline-flex items-center px-4 py-1 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-              >
-                <SearchIcon className="block h-5 w-5" aria-hidden="true" />
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
     </div>
   );
 }
@@ -280,4 +232,4 @@ function LoggedInUser({ address, disconnect }) {
     </div>
   );
 }
-export default Header;
+export default LeaderboardHeader;

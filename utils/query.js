@@ -262,9 +262,8 @@ export function getUnlockedTokens() {
   let oneDatTimestamp = 86400;
   let numberOfDays = 3;
   return `query MyQuery {
-    unstakeTransactions(first: 20,where: {tokenUnlockTimestamp_gt: ${dayStartTimestamp}, tokenUnlockTimestamp_lt: ${
-    dayStartTimestamp + oneDatTimestamp * numberOfDays
-  }}) {
+    unstakeTransactions(first: 20,where: {tokenUnlockTimestamp_gt: ${dayStartTimestamp}, tokenUnlockTimestamp_lt: ${dayStartTimestamp +
+    oneDatTimestamp * numberOfDays}}) {
       amount
       date
       id
@@ -309,4 +308,76 @@ export function getTopStakers() {
       totalWithdrawn
     }
   }`;
+}
+
+export function getDailyUserData(timestamp) {
+  return `query  {
+    userDayDatas(orderBy: totalPnL, orderDirection: desc, first: 50, where: {startDate: ${timestamp}}) {
+      assetList
+      id
+      address
+      startDate
+      totalPnL
+      totalTrades
+      totalVolume
+    }
+  }
+  `;
+}
+
+export function getWeeklyUserData(timestamp) {
+  return `query  {
+    userWeeklyDatas(orderBy: totalPnL, orderDirection: desc, first: 50, where: {startDate: ${timestamp}}) {
+      assetList
+      id
+      address
+      startDate
+      totalPnL
+      totalTrades
+      totalVolume
+    }
+  }
+  `;
+}
+
+export function getMonthlyUserData(timestamp) {
+  return `query  {
+    userMonthlyDatas(orderBy: totalPnL, orderDirection: desc, first: 50, where: {startDate: ${timestamp}}) {
+      assetList
+      id
+      address
+      startDate
+      totalPnL
+      totalTrades
+      totalVolume
+    }
+  }
+  `;
+}
+export function getAllTimeUserData() {
+  return `query  {
+    users(orderBy: totalPnL, orderDirection: desc, first: 30) {
+      assetList
+      id
+      address
+      totalPnL
+      totalTrades
+      totalVolume
+    }
+  }
+  `;
+}
+export function getLastTimestamp() {
+  return `query GetTimeStamp {
+    userWeeklyDatas(orderBy: startDate, orderDirection: desc, first: 1) {
+      startDate
+    }
+    userMonthlyDatas(first: 1, orderBy: startDate, orderDirection: desc) {
+      startDate
+    }
+    userDayDatas(orderBy: startDate, orderDirection: desc, first: 1) {
+      startDate
+    }
+  }
+  `;
 }
