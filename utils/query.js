@@ -355,18 +355,16 @@ export function getMonthlyUserData(timestamp) {
   `;
 }
 export function getAllTimeUserData() {
-  return `query  {
-    users(orderBy: totalPnL, orderDirection: desc, first: 30) {
-      assetList
-      id
-      address
-      totalPnL
-      totalTrades
-      totalVolume
-    }
+  return `query TopUsers {
+    users(first: 15, orderDirection: desc, orderBy: totalPnL) {
+    address
+    id
+    totalPnL
+    totalVolume
   }
-  `;
+}`;
 }
+
 export function getLastTimestamp() {
   return `query GetTimeStamp {
     userWeeklyDatas(orderBy: startDate, orderDirection: desc, first: 1) {
