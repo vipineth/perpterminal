@@ -12,7 +12,7 @@ export default function ReferralBanner() {
                 className="h-6 w-6 text-white inline mr-2"
                 aria-hidden="true"
               />{" "}
-              Get 40% discount off your trading fees by using{" "}
+              Get 20% discount off your trading fees by using{" "}
               <a
                 href="https://referral.perp.exchange?code=perpterminal"
                 rel="noopener"
